@@ -3,18 +3,18 @@ const { Schema, model } = require('mongoose');
 const { userStatus, userRole } = require('../configs');
 
 const userSchema = new Schema({
-    userName: {
+    user_name: {
         type: String,
         required: true,
         trim: true
     },
-    fullName: {
+    full_name: {
         type: String,
         required: true,
         trim: true
     },
     born: {
-        type: Date,
+        type: String,
         required: true,
         trim: true
     },

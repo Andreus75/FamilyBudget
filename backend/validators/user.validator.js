@@ -4,14 +4,13 @@ const { userStatus, userRole } = require('../configs');
 
 
 const userCreateValidator = Joi.object({
-    userName: Joi.string()
+    user_name: Joi.string()
         .alphanum()
         .min(2)
         .max(15)
         .trim()
         .required(),
-    fullName: Joi.string()
-        .alphanum()
+    full_name: Joi.string()
         .min(4)
         .max(30)
         .trim()

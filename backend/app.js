@@ -9,6 +9,9 @@ mongoose.connect(MONGO_CONNECT_URL).then(() => {
     console.log('Mongo connect successfully');
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const { userRouter } = require('./routers');
 
 app.use('/users', userRouter);

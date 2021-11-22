@@ -1,5 +1,5 @@
 module.exports = {
-    EMAIL_OR_PASSWORD_IS_WRONG: 'Email or password is wrong!!!',
+    USERNAME_OR_PASSWORD_IS_WRONG: 'UserName or password is wrong!!!',
     INVALID_TOKEN: 'Invalid token!!!',
     USERNAME_ALREADY_EXIST: 'UserName already exist!!!',
     ACCESS_DENIED: 'Access denied',

@@ -26,6 +26,19 @@ const userCreateValidator = Joi.object({
         .required()
 });
 
+const userNameAndPasswordValidator = Joi.object({
+    user_name: Joi.string()
+        .alphanum()
+        .min(2)
+        .max(15)
+        .trim()
+        .required(),
+    password: Joi.string()
+        .regex(PASSWORD_REGEXP)
+        .required()
+});
+
 module.exports = {
-    userCreateValidator
+    userCreateValidator,
+    userNameAndPasswordValidator
 };

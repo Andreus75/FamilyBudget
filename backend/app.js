@@ -12,8 +12,9 @@ mongoose.connect(MONGO_CONNECT_URL).then(() => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const { userRouter } = require('./routers');
+const { authRouter, userRouter } = require('./routers');
 
+app.use('/auth', authRouter);
 app.use('/users', userRouter);
 
 app.listen(PORT, () => {

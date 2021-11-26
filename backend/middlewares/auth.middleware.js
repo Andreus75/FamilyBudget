@@ -1,6 +1,14 @@
-const { User } = require('../dataBase');
-const { USERNAME_OR_PASSWORD_IS_WRONG, ClientErrorNotFound } = require('../configs/error-enum');
-const { passwordService } = require('../services');
+const { User, ActionForgot} = require('../dataBase');
+const {
+    USERNAME_OR_PASSWORD_IS_WRONG,
+    ClientErrorNotFound,
+    INVALID_TOKEN,
+    ClientErrorUnauthorized
+} = require('../configs/error-enum');
+const { passwordService, jwtService} = require('../services');
+const { AUTHORIZATION } = require('../configs/constants');
+const { tokenTypeEnum } = require('../configs');
+
 module.exports = {
     authUserToUserName: async (req, res, next) => {
         try {
@@ -32,6 +40,38 @@ module.exports = {
             const { password: hashPassword } = req.user;
 
             await passwordService.compare(password, hashPassword);
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    chekAccessNewToken: async (req, res, next) => {
+        try {
+            const token = req.get(AUTHORIZATION);
+
+            if (!token) {
+                return next({
+                    message: INVALID_TOKEN,
+                    status: ClientErrorUnauthorized
+                });
+            }
+
+            await jwtService.verifyToken(token, tokenTypeEnum.FORGOT_PASSWORD);
+
+            const tokenForgotNew = await ActionForgot
+                .findOne({token, type: tokenTypeEnum.FORGOT_PASSWORD})
+                .populate('user_id');
+
+            if (!tokenForgotNew) {
+                return next({
+                    message: INVALID_TOKEN,
+                    status: ClientErrorUnauthorized
+                });
+            }
+
+            req.user = tokenForgotNew.user_id;
 
             next();
         } catch (e) {

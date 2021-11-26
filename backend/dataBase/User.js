@@ -5,6 +5,7 @@ const { userStatus, userRole } = require('../configs');
 const userSchema = new Schema({
     user_name: {
         type: String,
+        unique: true,
         required: true,
         trim: true
     },

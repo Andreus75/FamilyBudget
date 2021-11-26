@@ -13,8 +13,7 @@ const userCreateValidator = Joi.object({
     full_name: Joi.string()
         .min(4)
         .max(30)
-        .trim()
-        .required(),
+        .trim(),
     born: Joi.date()
         .required(),
     status: Joi.string().allow(...Object.values(userStatus)),
@@ -38,7 +37,30 @@ const userNameAndPasswordValidator = Joi.object({
         .required()
 });
 
+const userUpdateValidator = Joi.object({
+    full_name: Joi.string()
+        .min(4)
+        .max(30)
+        .trim(),
+    status: Joi.string().allow(...Object.values(userStatus)),
+    email: Joi.string()
+        .regex(EMAIL_REGEXP),
+});
+
+const emailValidator = Joi.object({
+    email: Joi.string()
+        .regex(EMAIL_REGEXP)
+});
+
+const passwordValidator = Joi.object({
+    password: Joi.string()
+        .regex(PASSWORD_REGEXP)
+});
+
 module.exports = {
     userCreateValidator,
-    userNameAndPasswordValidator
+    userNameAndPasswordValidator,
+    userUpdateValidator,
+    emailValidator,
+    passwordValidator
 };

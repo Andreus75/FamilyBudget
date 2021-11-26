@@ -14,4 +14,17 @@ router.post(
 
 router.post('/logout', authController.logout);
 
+router.post(
+    '/password/forgot',
+    userMiddleware.isUserBodyValid(userValidator.emailValidator),
+    authController.sendMailForgotPassword
+);
+
+router.put(
+    '/password/forgot',
+    userMiddleware.isUserBodyValid(userValidator.passwordValidator),
+    authMiddleware.chekAccessNewToken,
+    authController.setNewPasswordAfterForgot
+);
+
 module.exports = router;

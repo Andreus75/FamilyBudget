@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const { JWT_ACCESS_TOKEN, JWT_REFRESH_TOKEN } = require('../configs/config');
+const { JWT_ACCESS_TOKEN, JWT_REFRESH_TOKEN, JWT_ACTION_FORGOT_SECRET} = require('../configs/config');
 const ErrorHandler = require('../errors/ErrorHandler');
-const { INVALID_TOKEN, ClientErrorUnauthorized } = require('../configs/error-enum');
+const { INVALID_TOKEN, ClientErrorUnauthorized, ServerErrorInternal} = require('../configs/error-enum');
 const { tokenTypeEnum } = require('../configs');
 
 module.exports = {
@@ -23,8 +23,11 @@ module.exports = {
                 case tokenTypeEnum.ACCESS:
                     secret = JWT_ACCESS_TOKEN;
                     break;
-                case tokenType.REFRESH:
+                case tokenTypeEnum.REFRESH:
                     secret = JWT_REFRESH_TOKEN;
+                    break;
+                case tokenTypeEnum.FORGOT_PASSWORD:
+                    secret = JWT_ACTION_FORGOT_SECRET;
                     break;
             }
 
@@ -32,6 +35,26 @@ module.exports = {
         } catch (e) {
             throw new ErrorHandler(INVALID_TOKEN, ClientErrorUnauthorized);
 
+        }
+    },
+
+    generateForgotActionToken: (actionTokenType) => {
+        try {
+            let secretWord;
+
+            switch (actionTokenType) {
+                case tokenTypeEnum.FORGOT_PASSWORD:
+                    secretWord =JWT_ACTION_FORGOT_SECRET;
+                    break;
+                default:
+                    throw new ErrorHandler(INVALID_TOKEN, ServerErrorInternal);
+            }
+
+            const generate_forgot_token = jwt.sign({}, secretWord, {expiresIn: '24h'});
+
+            return generate_forgot_token;
+        } catch (e) {
+            throw new ErrorHandler(INVALID_TOKEN, ClientErrorUnauthorized);
         }
     }
 };

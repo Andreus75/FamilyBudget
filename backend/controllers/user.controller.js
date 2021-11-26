@@ -44,11 +44,25 @@ module.exports = {
 
     deleteUserById: async (req, res, next) => {
         try {
-            const user = req.user;
+            const { user_id } = req.params;
 
-            await User.deleteOne(user);
+            await User.findOneAndDelete({_id: user_id});
 
             res.sendStatus(SuccessNoContent);
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    updateUser: async (req, res, next) => {
+        try {
+            const {user_id} = req.params;
+
+            const { full_name, status, email } = req.body;
+
+            const userUpdate = await User.findByIdAndUpdate({_id: user_id}, { full_name, status, email }, { new: true });
+
+            res.status(SuccessCreated).json(userUpdate);
         } catch (e) {
             next(e);
         }

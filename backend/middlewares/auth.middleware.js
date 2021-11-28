@@ -1,4 +1,4 @@
-const { User, ActionForgot} = require('../dataBase');
+const { User, ActionForgot, Auth} = require('../dataBase');
 const {
     USERNAME_OR_PASSWORD_IS_WRONG,
     ClientErrorNotFound,
@@ -40,6 +40,36 @@ module.exports = {
             const { password: hashPassword } = req.user;
 
             await passwordService.compare(password, hashPassword);
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    chekAccessToken: async (req, res, next) => {
+        try {
+            const token = req.get(AUTHORIZATION);
+
+            if (!token) {
+                return next({
+                    message: INVALID_TOKEN,
+                    status: ClientErrorUnauthorized
+                });
+            }
+
+            await jwtService.verifyToken(token);
+
+            const registrationUser = await Auth.findOne({access_token: token}).populate('user_id');
+
+            if (!registrationUser) {
+                return next({
+                    message: INVALID_TOKEN,
+                    status: ClientErrorUnauthorized
+                });
+            }
+
+            req.user = registrationUser.user_id;
 
             next();
         } catch (e) {

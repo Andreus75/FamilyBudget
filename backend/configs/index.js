@@ -5,5 +5,7 @@ module.exports = {
     userRole: require('./user-role-enum'),
     constants: require('./constants'),
     tokenTypeEnum: require('./token-type-enum'),
-    emailActionEnum: require('./email-action-enum')
+    emailActionEnum: require('./email-action-enum'),
+    transactionCategoryEnum: require('./transaction-category-enum'),
+    transactionKindEnum: require('./transaction-kind-enum')
 };

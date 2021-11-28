@@ -15,7 +15,7 @@ module.exports = {
         };
     },
 
-    verifyToken: async (token, tokenType = tokenTypeEnum) => {
+    verifyToken: async (token, tokenType = tokenTypeEnum.ACCESS) => {
         try {
             let secret = '';
 

@@ -8,5 +8,9 @@ module.exports = {
     [emailActionEnum.CHANGE_FORGOT_PASSWORD]: {
         templateName: 'change-forgot-password',
         subject: 'Your password was change'
+    },
+    [emailActionEnum.DELETE_TRANSACTION]: {
+        templateName: 'delete-transaction',
+        subject: 'Transaction was deleted'
     }
 };

@@ -14,6 +14,8 @@ router.post(
 
 router.post('/logout', authController.logout);
 
+router.post('/change/password');
+
 router.post(
     '/password/forgot',
     userMiddleware.isUserBodyValid(userValidator.emailValidator),

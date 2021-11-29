@@ -3,11 +3,6 @@ const { Schema, model } = require('mongoose');
 const { transactionCategoryEnum, transactionKindEnum } = require('../configs');
 
 const transactionSchema = new Schema({
-    data: {
-        type: String,
-        required: true,
-        trim: true
-    },
     sum: {
         type: Number,
         required: true,

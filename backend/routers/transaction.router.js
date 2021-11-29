@@ -20,6 +20,12 @@ router.put(
 
 router.get('/', transactionController.findAllTransaction);
 
+router.get(
+    '/filter',
+    transactionMiddleware.isTransactionBodyValid(transactionValidator.filterTransactionValidator),
+    transactionMiddleware.findTransactionFilter,
+    transactionController.filterTransaction);
+
 router.get('/:transaction_id', transactionMiddleware.findTransactionById, transactionController.findTransactionById);
 
 router.delete(
@@ -27,5 +33,6 @@ router.delete(
     transactionMiddleware.findTransactionById,
     transactionController.deleteTransaction
 );
+
 
 module.exports = router;

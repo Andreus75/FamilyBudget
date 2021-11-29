@@ -1,7 +1,7 @@
 const { Transaction, User} = require('../dataBase');
 const { SuccessCreated, YOU_HAVE_NOT_RIGHTS, SuccessNoContent} = require('../configs/error-enum');
-const {emailService} = require('../services');
-const {emailActionEnum} = require('../configs');
+const { emailService } = require('../services');
+const { emailActionEnum } = require('../configs');
 
 module.exports = {
     createTransaction: async (req, res, next) => {
@@ -72,6 +72,16 @@ module.exports = {
             );
 
             res.json('transaction was deleted');
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    filterTransaction: (req, res, next) => {
+        try {
+            const transactions = req.transactions;
+            console.log(transactions);
+            res.json(transactions);
         } catch (e) {
             next(e);
         }

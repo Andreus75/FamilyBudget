@@ -40,5 +40,39 @@ module.exports = {
         } catch (e) {
             next(e);
         }
+    },
+
+    findTransactionFilter: async (req, res, next) => {
+        try {
+            const body = req.body;
+
+            const transactions = [];
+
+            if (body.start_data && body.end_data && body.full_name_user) {
+                const transactionsFilter = await Transaction
+                    .find({createdAt: {$gte: body.start_data, $lte: body.end_data}});
+
+                for (const transactionsFilterElement of transactionsFilter) {
+
+                    if (body.full_name_user === transactionsFilterElement.full_name_user) {
+                        transactions.push(...transactions, transactionsFilterElement);
+                    }
+
+                    req.transactions = transactions;
+                }
+            }else if (body.start_data && body.end_data && !body.full_name_user) {
+                const transactionsFilter = await Transaction
+                    .find({createdAt: {$gte: body.start_data, $lte: body.end_data}});
+
+                req.transactions = transactionsFilter;
+            }else if (!body.start_data && !body.end_data && body.full_name_user) {
+                const transactions = await Transaction.find({full_name_user: body.full_name_user});
+                req.transactions = transactions;
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
     }
 };

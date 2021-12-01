@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { userMiddleware } = require('../middlewares');
+const { userMiddleware, authMiddleware } = require('../middlewares');
 const userValidator = require('../validators/user.validator');
 const { userController } = require('../controllers');
 
@@ -9,6 +9,8 @@ router.post(
     userMiddleware.isUserBodyValid(userValidator.userCreateValidator),
     userMiddleware.isUserNameExist,
     userController.createUser);
+
+router.use(authMiddleware.chekAccessToken);
 
 router.get('/', userController.getUsers);
 

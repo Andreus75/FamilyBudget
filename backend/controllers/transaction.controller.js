@@ -7,6 +7,11 @@ module.exports = {
     createTransaction: async (req, res, next) => {
         try {
             const user = req.user;
+            const { sum } = req.body;
+
+            user.total = user.total + sum;
+
+            await User.findByIdAndUpdate({_id: user.id}, {total: user.total}, {new: true});
 
             const newTransaction = await Transaction.create({...req.body, full_name_user: user.full_name, user_id: user._id });
 
@@ -79,9 +84,14 @@ module.exports = {
 
     filterTransaction: (req, res, next) => {
         try {
+            let total = 0;
             const transactions = req.transactions;
-            console.log(transactions);
-            res.json(transactions);
+
+            for (const transaction of transactions) {
+                total = total + transaction.sum;
+            }
+
+            res.json({transactions, total});
         } catch (e) {
             next(e);
         }

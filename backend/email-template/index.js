@@ -12,5 +12,9 @@ module.exports = {
     [emailActionEnum.DELETE_TRANSACTION]: {
         templateName: 'delete-transaction',
         subject: 'Transaction was deleted'
+    },
+    [emailActionEnum.REPORT]: {
+        templateName: 'report',
+        subject: 'Month report'
     }
 };

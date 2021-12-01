@@ -12,27 +12,27 @@ router.post(
     transactionController.createTransaction
 );
 
+router.get('/', transactionController.findAllTransaction);
+
+router.get(
+    '/filters',
+    transactionMiddleware.isTransactionBodyValid(transactionValidator.filterTransactionValidator),
+    transactionMiddleware.findTransactionFilter,
+    transactionController.filterTransaction
+);
+
+router.get('/:transaction_id', transactionMiddleware.findTransactionById, transactionController.findTransactionById);
+
 router.put(
     '/:transaction_id',
     transactionMiddleware.isTransactionBodyValid(transactionValidator.updateTransactionValidator),
     transactionController.updateTransaction
 );
 
-router.get('/', transactionController.findAllTransaction);
-
-router.get(
-    '/filter',
-    transactionMiddleware.isTransactionBodyValid(transactionValidator.filterTransactionValidator),
-    transactionMiddleware.findTransactionFilter,
-    transactionController.filterTransaction);
-
-router.get('/:transaction_id', transactionMiddleware.findTransactionById, transactionController.findTransactionById);
-
 router.delete(
     '/:transaction_id',
     transactionMiddleware.findTransactionById,
     transactionController.deleteTransaction
 );
-
 
 module.exports = router;

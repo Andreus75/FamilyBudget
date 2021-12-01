@@ -1,0 +1,770 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "FamilyBudget",
+    "contact": {
+      "name": "Andriy Tryndey",
+      "email": "atrundey@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "users",
+      "description": "Everything about users"
+    },
+    {
+      "name": "auth",
+      "description": "Everything about authentication"
+    },
+    {
+      "name": "transactions",
+      "description": "Everything about transaction"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Add a new user to the store",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "name": "user_name",
+            "in": "formData",
+            "default": "Nazik",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "full_name",
+            "in": "formData",
+            "default": "Nazar Nazarov",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "born",
+            "in": "formData",
+            "default": "2001-10-10",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "formData",
+            "default": "working",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "formData",
+            "default": "user",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "default": "example@gmail.com",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "default": "Hello_World!1",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was created",
+            "schema": {
+              "$ref": "#/definitions/singleUser"
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "Pull out all users from the store",
+        "operationId": "getAllUsers",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "default": 1,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "default": 20,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "users was found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/singleUser"
+              }
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Get user from the store",
+        "operationId": "getUserById",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user was found",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/singleUser"
+              }
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/singleUser"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["users"],
+        "summary": "Change user from the store",
+        "operationId": "putUser",
+        "description": "User object that we change from store",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "full_name",
+            "in": "formData",
+            "default": "Ivan Kohiv",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "formData",
+            "default": "pensioner",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "default": "example@gmail.com",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user was changed",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/singleUser"
+              }
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["users"],
+        "summary": "Delete user from the store",
+        "operationId": "deleteUser",
+        "description": "User object that you delete from store",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user was deleted"
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Registration to user",
+        "operationId": "authUser",
+        "parameters": [
+          {
+            "name": "user_name",
+            "in": "formData",
+            "default": "Nazik",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "default": "Hello_World!1",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was registered"
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Logout user",
+        "operationId": "logoutUser",
+        "description": "User object that needs logout",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was logout"
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    },
+    "/auth/password/forgot": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Forgot password",
+        "operationId": "forgotPassword",
+        "description": "User forgot password",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "default": "Example@gmail.com",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "check mail"
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["auth"],
+        "summary": "Forgot and change password",
+        "operationId": "changePassword",
+        "description": "Change password",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "default": "Hello_Wold1!",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password was changed"
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "post": {
+        "tags": ["transactions"],
+        "summary": "Add new transaction to store",
+        "operationId": "createTransaction",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sum",
+            "in": "formData",
+            "default": "100",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "category",
+            "in": "formData",
+            "default": "travel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "kind",
+            "in": "formData",
+            "default": "food",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction was created",
+            "schema": {
+              "$ref": "#/definitions/singleTransaction"
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["transactions"],
+        "summary": "Pull out all transactions from the store",
+        "operationId": "getAllTransaction",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "default": 1,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "default": 20,
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "transactions was found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/singleTransaction"
+              }
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    },
+    "/transactions/{transaction_id}": {
+      "get": {
+        "tags": ["transactions"],
+        "summary": "Get transaction from the store",
+        "operationId": "getTransaction",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "transaction was found",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/singleTransaction"
+              }
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["transactions"],
+        "summary": "Change transaction from the store",
+        "operationId": "putTransaction",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sum",
+            "in": "formData",
+            "default": 250,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "category",
+            "in": "formData",
+            "default": "products",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "kind",
+            "in": "formData",
+            "default": "clothes",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "transaction was changed",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/singleTransaction"
+              }
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["transactions"],
+        "summary": "Delete transaction from the store",
+        "operationId": "deleteTransaction",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "transaction was delete"
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    },
+    "/transactions/filter": {
+      "get": {
+        "tags": [
+          "transactions"
+        ],
+        "summary": "Pull out all filter transactions from the store",
+        "operationId": "getFilterTransactions",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "default": 1,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "default": 20,
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "start_data",
+            "in": "formData",
+            "default": "2021-11-30",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "end_data",
+            "in": "formData",
+            "default": "2021-12-02",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "full_name_user",
+            "in": "formData",
+            "default": "Ivan Popov",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "filtered transactions was found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/singleTransaction"
+              }
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "singleUser": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "12345@ss",
+          "description": "MongoDB ID"
+        },
+        "user_name": {
+          "type": "string",
+          "example": "Nazik"
+        },
+        "full_name": {
+          "type": "string",
+          "example": "Nazar Nazarov"
+        },
+        "born": {
+          "type": "string",
+          "example": "2001-10-10"
+        },
+        "status": {
+          "type": "string",
+          "example": "working"
+        },
+        "role": {
+          "type": "string",
+          "example": "user"
+        }
+      }
+    },
+    "singleTransaction": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "12345@ss",
+          "description": "MongoDB ID"
+        },
+        "sum": {
+          "type": "number",
+          "example": 100
+        },
+        "category": {
+          "type": "string",
+          "example": "travel"
+        },
+        "kind": {
+          "type": "string",
+          "example": "food"
+        },
+        "full_name_user": {
+          "type": "string",
+          "example": "Nazar Nazarov"
+        },
+        "user_id": {
+          "type": "string",
+          "example": "23432@SS",
+          "description": "MongoDB ID"
+        }
+      }
+    },
+    "commonError": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "example": "Something went wrong"
+        },
+        "code": {
+          "type": "number",
+          "example": 400
+        }
+      }
+    }
+  }
+}

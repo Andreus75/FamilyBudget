@@ -42,6 +42,12 @@ const userSchema = new Schema({
         default: false,
         required: true
     },
+    total: {
+        type: Number,
+        default: 0,
+        required: true,
+        trim: true
+    },
     avatar: {
         type: String
     }

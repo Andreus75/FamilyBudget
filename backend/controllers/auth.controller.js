@@ -67,7 +67,7 @@ module.exports = {
             await emailService.sendMail(
                 email,
                 emailActionEnum.FORGOT_PASSWORD,
-                {forgotPasswordUrl: HTTP + `passwordForgot?token=${actionForgotToken}`}
+                {forgotPasswordUrl: HTTP + `auth/password/forgot/new?token=${actionForgotToken}`}
             );
 
             res.json('Ok');

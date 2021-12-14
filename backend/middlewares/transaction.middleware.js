@@ -44,32 +44,29 @@ module.exports = {
 
     findTransactionFilter: async (req, res, next) => {
         try {
-            const body = req.body;
+            const {start_data, end_data, full_name_user} = req.query;
 
             const transactions = [];
 
-            if (body.start_data && body.end_data && body.full_name_user) {
+            if (start_data && end_data && full_name_user) {
                 const transactionsFilter1 = await Transaction
-                    .find({createdAt: {$gte: body.start_data, $lte: body.end_data}});
+                    .find({createdAt: {$gte: start_data, $lte: end_data}});
 
                 for (const transactionsFilterElement of transactionsFilter1) {
 
-                    if (body.full_name_user === transactionsFilterElement.full_name_user) {
+                    if (full_name_user === transactionsFilterElement.full_name_user) {
                         transactions.push(transactionsFilterElement);
                     }
 
                     req.transactions = transactions;
                 }
-            }else if (body.start_data && body.end_data && !body.full_name_user) {
+            }else if (start_data && end_data && !full_name_user) {
 
-                const transactionsFilter2 = await Transaction
-                    .find({createdAt: {$gte: body.start_data, $lte: body.end_data}});
+                req.transactions = await Transaction
+                    .find({createdAt: {$gte: start_data, $lte: end_data}});
+            }else if (!start_data && !end_data && full_name_user) {
 
-                req.transactions = transactionsFilter2;
-            }else if (!body.start_data && !body.end_data && body.full_name_user) {
-
-                const transactionsFilter3 = await Transaction.find({full_name_user: body.full_name_user});
-                req.transactions = transactionsFilter3;
+                req.transactions = await Transaction.find({full_name_user});
             }
 
             next();

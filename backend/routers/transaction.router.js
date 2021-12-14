@@ -16,7 +16,6 @@ router.get('/', transactionController.findAllTransaction);
 
 router.get(
     '/filters',
-    transactionMiddleware.isTransactionBodyValid(transactionValidator.filterTransactionValidator),
     transactionMiddleware.findTransactionFilter,
     transactionController.filterTransaction
 );

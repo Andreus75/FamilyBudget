@@ -12,7 +12,6 @@ module.exports = {
     isUserBodyValid: (validator) => (req, res, next) => {
         try {
             const { error, value } = validator.validate(req.body);
-
             if (error) {
                 return next({
                     message:  new Error(error.details[0].message),

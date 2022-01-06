@@ -1,13 +1,14 @@
-const { User, ActionForgot, Auth} = require('../dataBase');
+const { User, ActionForgot, Auth, Family, Action} = require('../dataBase');
 const {
     USERNAME_OR_PASSWORD_IS_WRONG,
     ClientErrorNotFound,
     INVALID_TOKEN,
-    ClientErrorUnauthorized
+    ClientErrorUnauthorized, FAMILY_EMAIL_OR_PASSWORD_IS_WRONG, ACTIVATE_FAMILY
 } = require('../configs/error-enum');
 const { passwordService, jwtService} = require('../services');
 const { AUTHORIZATION } = require('../configs/constants');
 const { tokenTypeEnum } = require('../configs');
+const ErrorHandler = require('../errors/ErrorHandler');
 
 module.exports = {
     authUserToUserName: async (req, res, next) => {
@@ -34,12 +35,75 @@ module.exports = {
         }
     },
 
+    authToEmail: async (req, res, next) => {
+        try {
+            const { email } = req.body;
+
+            const family = await Family.findOne(
+                {email})
+                .select('+password')
+                .lean();
+
+            if (!family) {
+                return next({
+                    message: FAMILY_EMAIL_OR_PASSWORD_IS_WRONG,
+                    status: ClientErrorNotFound
+                });
+                if (!family.is_active) {
+                    return res.statusCode(ClientErrorNotFound).json({ message: ACTIVATE_FAMILY });
+                }
+            }
+
+            req.family = family;
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    authFamilyToPassword: async (req, res, next) => {
+        try {
+            const { password } = req.body;
+
+            const { password: hashPassword } = req.family;
+
+            await passwordService.compare(password, hashPassword);
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
     authUserToPassword: async (req, res, next) => {
         try {
             const { password } = req.body;
             const { password: hashPassword } = req.user;
 
             await passwordService.compare(password, hashPassword);
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    checkActivateToken: async (req, res, next) => {
+        try {
+            const { token } = req.params;
+
+            await jwtService.verifyToken(token, tokenTypeEnum.ACTION);
+
+            const { family_id: family, _id} = await Action.findOne({token, type: tokenTypeEnum.ACTION}).populate('family_id');
+
+            if (!family) {
+                throw new ErrorHandler(INVALID_TOKEN, ClientErrorUnauthorized);
+            }
+
+            req.family = family;
+
+            await Action.deleteOne({ _id });
 
             next();
         } catch (e) {
@@ -60,16 +124,16 @@ module.exports = {
 
             await jwtService.verifyToken(token);
 
-            const registrationUser = await Auth.findOne({access_token: token}).populate('user_id');
+            const registrationFamily = await Auth.findOne({access_token: token}).populate('family_id');
 
-            if (!registrationUser) {
+            if (!registrationFamily) {
                 return next({
                     message: INVALID_TOKEN,
                     status: ClientErrorUnauthorized
                 });
             }
 
-            req.user = registrationUser.user_id;
+            req.family = registrationFamily.family_id;
 
             next();
         } catch (e) {

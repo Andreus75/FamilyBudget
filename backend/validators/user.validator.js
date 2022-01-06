@@ -4,13 +4,7 @@ const { userStatus, userRole } = require('../configs');
 
 
 const userCreateValidator = Joi.object({
-    user_name: Joi.string()
-        .alphanum()
-        .min(2)
-        .max(15)
-        .trim()
-        .required(),
-    full_name: Joi.string()
+    name: Joi.string()
         .min(4)
         .max(30)
         .trim(),
@@ -20,9 +14,6 @@ const userCreateValidator = Joi.object({
     role: Joi.string().allow(...Object.values(userRole)),
     email: Joi.string()
         .regex(EMAIL_REGEXP),
-    password: Joi.string()
-        .regex(PASSWORD_REGEXP)
-        .required(),
     avatar: Joi.string()
 });
 
@@ -39,7 +30,7 @@ const userNameAndPasswordValidator = Joi.object({
 });
 
 const userUpdateValidator = Joi.object({
-    full_name: Joi.string()
+    name: Joi.string()
         .min(4)
         .max(30)
         .trim(),

@@ -2,6 +2,7 @@ module.exports = {
     USERNAME_OR_PASSWORD_IS_WRONG: 'UserName or password is wrong!!!',
     INVALID_TOKEN: 'Invalid token!!!',
     USERNAME_ALREADY_EXIST: 'UserName already exist!!!',
+    USER_ADMIN_ALREADY_EXIST: 'User admin already exist',
     ACCESS_DENIED: 'Access denied',
     USER_WITH_THIS_ID_IS_MISSING: 'User with this id is missing!!!',
     TRANSACTION_WITH_THIS_ID_IS_MISSING: 'Transaction with this id is missing',
@@ -12,6 +13,11 @@ module.exports = {
     USER_NOT_FOUND: 'User not found',
     NOT_SUPPORTED_FORMAT: 'Not supported format',
     YOU_HAVE_NOT_RIGHTS: 'You have no rights',
+    FAMILY_ALREADY_EXIST: 'Family with this email already exist',
+    FAMILY_WITH_THIS_ID_IS_MISSING: 'Family with this id is missing',
+    FAMILY_EMAIL_OR_PASSWORD_IS_WRONG: 'Family email or password is wrong',
+    FAMILY_IS_ACTIVE: 'Family is active',
+    ACTIVATE_FAMILY: 'You should activate your family',
 
 
     SuccessOK: 200,

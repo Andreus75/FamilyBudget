@@ -19,9 +19,10 @@ app.use(cors({origin: 'http://localhost:3000'}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const { authRouter, userRouter, transactionRouter } = require('./routers');
+const { authRouter, userRouter, transactionRouter, familyRouter } = require('./routers');
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerJson));
+app.use('/family', familyRouter);
 app.use('/auth', authRouter);
 app.use('/transactions', transactionRouter);
 app.use('/users', userRouter);

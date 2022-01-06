@@ -1,5 +1,6 @@
 module.exports = {
     userRouter: require('./user.router'),
     authRouter: require('./auth.router'),
-    transactionRouter: require('./transaction.router')
+    transactionRouter: require('./transaction.router'),
+    familyRouter: require('./family.router')
 };

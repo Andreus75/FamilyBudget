@@ -1,3 +1,6 @@
+.filter_form {
+    /*text-align: center;*/
+}
 .select_filter {
-    margin: 0;
+    margin: 10px;
 }

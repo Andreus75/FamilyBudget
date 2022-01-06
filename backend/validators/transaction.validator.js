@@ -9,7 +9,8 @@ const createTransactionValidator = Joi.object({
     category: Joi.string()
         .allow(...Object.values(transactionCategoryEnum))
         .required(),
-    kind: Joi.string().allow(...Object.values(transactionKindEnum))
+    kind: Joi.string().allow(...Object.values(transactionKindEnum)),
+    user_name: Joi.string()
 });
 const updateTransactionValidator = Joi.object({
     sum: Joi.number()
@@ -21,7 +22,7 @@ const updateTransactionValidator = Joi.object({
 const filterTransactionValidator = Joi.object({
     start_data: Joi.string(),
     end_data: Joi.string(),
-    full_name_user: Joi.string()
+    user_name: Joi.string()
 });
 
 module.exports = {

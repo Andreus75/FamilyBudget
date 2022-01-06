@@ -6,14 +6,21 @@ const { emailActionEnum } = require('../configs');
 module.exports = {
     createTransaction: async (req, res, next) => {
         try {
-            const user = req.user;
-            const { sum } = req.body;
+            const family = req.family;
+
+            const { sum, user_name } = req.body;
+
+            const user = await User.findOne({family_id: family._id, name: user_name});
 
             user.total = user.total + sum;
 
             await User.findByIdAndUpdate({_id: user.id}, {total: user.total}, {new: true});
 
-            const newTransaction = await Transaction.create({...req.body, full_name_user: user.full_name, user_id: user._id });
+            const newTransaction = await Transaction.create({
+                ...req.body,
+                user_name: user.name,
+                user_id: user._id,
+                family_id: family._id });
 
             res.json(newTransaction);
         }catch (e) {
@@ -34,11 +41,16 @@ module.exports = {
         }
     },
 
-    findAllTransaction: async (req, res, next) => {
+    findAllFamilyTransaction: async (req, res, next) => {
         try {
-            const transactions = await Transaction.find();
-
-            res.json(transactions);
+            let total = 0;
+            const { _id } = req.family;
+            const family_id = _id;
+            const transactions = await Transaction.find({ family_id });
+            for (const transaction of transactions) {
+                total = total + transaction.sum;
+            }
+            res.json({transactions, total});
         } catch (e) {
             next(e);
         }
@@ -73,7 +85,7 @@ module.exports = {
             await emailService.sendMail(
                 userAdmin.email,
                 emailActionEnum.DELETE_TRANSACTION,
-                { admin: userAdmin.full_name, userName: user.full_name, transaction: transaction.toString() }
+                { admin: userAdmin.name, userName: user.name, transaction: transaction.toString() }
             );
 
             res.json('transaction was deleted');

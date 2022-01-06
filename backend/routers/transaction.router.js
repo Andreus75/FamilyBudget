@@ -12,7 +12,7 @@ router.post(
     transactionController.createTransaction
 );
 
-router.get('/', transactionController.findAllTransaction);
+router.get('/', transactionController.findAllFamilyTransaction);
 
 router.get(
     '/filters',

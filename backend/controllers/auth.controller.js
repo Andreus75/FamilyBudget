@@ -1,31 +1,26 @@
 const { jwtService, emailService, passwordService} = require('../services');
-const { User, Auth, ActionForgot } = require('../dataBase');
+const { User, Auth, ActionForgot, Family} = require('../dataBase');
 const { AUTHORIZATION } = require('../configs/constants');
-const { USER_NOT_FOUND, ClientErrorNotFound } = require('../configs/error-enum');
+const { USER_NOT_FOUND, ClientErrorNotFound, SuccessOK, FAMILY_IS_ACTIVE} = require('../configs/error-enum');
 const { tokenTypeEnum, emailActionEnum, config : { HTTP } } = require('../configs');
 
 module.exports = {
-    login: async (req, res, next) => {
+    family_login: async (req, res, next) => {
         try {
-            const user = req.user;
+            console.log('family_login');
+            const family = req.family;
 
             const tokenPair = jwtService.generateTokenPair();
 
-            await User.updateOne(user, {is_login: true}, {new: true});
+            await Family.updateOne(family, {is_login: true}, { new: true});
 
-            await Auth.create({
-                ...tokenPair,
-                user_id: user._id
-            });
+            await Auth.create({...tokenPair, family_id: family._id});
 
-            res.json({
-                user,
-                ...tokenPair
-            });
+            res.json({family, ...tokenPair});
         } catch (e) {
             next(e);
         }
-    },
+},
 
     logout: async (req, res, next) => {
         try {
@@ -33,11 +28,23 @@ module.exports = {
 
             const authToken = await Auth.findOne({access_token: token});
 
-            await User.findOneAndUpdate({ _id: authToken.user_id }, { is_login: false }, { new: true });
+            await Family.findOneAndUpdate({ _id: authToken.user_id }, { is_login: false }, { new: true });
 
             await Auth.deleteOne(authToken);
 
             res.json('logout');
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    activate: async (req, res, next) => {
+        try {
+            const { _id, family_name } = req.family;
+
+            await Family.updateOne({ _id }, { is_active: true });
+
+            res.status(SuccessOK).json(family_name + ' ' + FAMILY_IS_ACTIVE);
         } catch (e) {
             next(e);
         }

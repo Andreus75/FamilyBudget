@@ -17,7 +17,7 @@ const transactionSchema = new Schema({
         type: String,
         enum: Object.values(transactionKindEnum)
     },
-    full_name_user: {
+    user_name: {
         type: String,
         required: true,
         trim: true
@@ -26,6 +26,11 @@ const transactionSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'user'
+    },
+    family_id: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'family'
     }
 
 }, { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });

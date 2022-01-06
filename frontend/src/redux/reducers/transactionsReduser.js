@@ -13,7 +13,7 @@ const transactionsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case GET_TRANSACTIONS:
-            return {...state, transactions: [...action.payload]};
+            return {...state, transactions: action.payload.transactions, total: action.payload.total};
         case GET_TRANSACTION:
             return {...state, transactions: action.payload};
         case FILTER_TRANSACTION:

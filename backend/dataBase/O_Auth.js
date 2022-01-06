@@ -11,10 +11,10 @@ const oAuthSchema = new Schema({
         required: true,
         trim: true
     },
-    user_id: {
+    family_id: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'user'
+        ref: 'family'
     }
 }, {timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 

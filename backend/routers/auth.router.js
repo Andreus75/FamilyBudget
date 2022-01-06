@@ -4,15 +4,19 @@ const { userMiddleware, authMiddleware } = require('../middlewares');
 const userValidator = require('../validators/user.validator');
 const { authController } = require('../controllers');
 
+router.get('/activate/:token', authMiddleware.checkActivateToken, authController.activate);
+
 router.post(
-    '/',
-    userMiddleware.isUserBodyValid(userValidator.userNameAndPasswordValidator),
-    authMiddleware.authUserToUserName,
-    authMiddleware.authUserToPassword,
-    authController.login
+    '/family',
+    authMiddleware.authToEmail,
+    authMiddleware.authFamilyToPassword,
+    authController.family_login
 );
 
-router.post('/logout', authController.logout);
+router.post(
+    '/logout',
+    authController.logout
+);
 
 router.post('/change/password');
 

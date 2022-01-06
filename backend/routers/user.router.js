@@ -4,13 +4,13 @@ const { userMiddleware, authMiddleware } = require('../middlewares');
 const userValidator = require('../validators/user.validator');
 const { userController } = require('../controllers');
 
+router.use(authMiddleware.chekAccessToken);
+
 router.post(
     '/',
     userMiddleware.isUserBodyValid(userValidator.userCreateValidator),
-    userMiddleware.isUserNameExist,
+    userMiddleware.isUserAdminExist,
     userController.createUser);
-
-router.use(authMiddleware.chekAccessToken);
 
 router.get('/', userController.getUsers);
 

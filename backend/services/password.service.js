@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { USERNAME_OR_PASSWORD_IS_WRONG, ClientErrorNotFound } = require('../configs/error-enum');
+const { ClientErrorNotFound, FAMILY_EMAIL_OR_PASSWORD_IS_WRONG} = require('../configs/error-enum');
 const ErrorHandler = require('../errors/ErrorHandler');
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
         const isPasswordMatched = await bcrypt.compare(password, hashPassword);
 
         if (!isPasswordMatched) {
-            throw new ErrorHandler(USERNAME_OR_PASSWORD_IS_WRONG, ClientErrorNotFound);
+            throw new ErrorHandler(FAMILY_EMAIL_OR_PASSWORD_IS_WRONG, ClientErrorNotFound);
         }
     }
 };

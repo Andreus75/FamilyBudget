@@ -3,7 +3,7 @@ export default function User ({user}) {
     const {full_name} = user;
     return (
         <div>
-            <h4>{full_name}</h4>
+            <p>{full_name}</p><button>Update</button><button>Delete</button><hr/>
         </div>
     );
 }

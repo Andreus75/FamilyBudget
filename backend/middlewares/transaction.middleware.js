@@ -44,29 +44,33 @@ module.exports = {
 
     findTransactionFilter: async (req, res, next) => {
         try {
-            const {start_data, end_data, full_name_user} = req.query;
+            const { _id } = req.family;
+            const { start_data, end_data, user_name } = req.query;
 
+            const family_id = _id;
             const transactions = [];
 
-            if (start_data && end_data && full_name_user) {
+            if (start_data && end_data && user_name && family_id) {
                 const transactionsFilter1 = await Transaction
-                    .find({createdAt: {$gte: start_data, $lte: end_data}});
+                    .find({createdAt: {$gte: start_data, $lte: end_data}, family_id});
 
                 for (const transactionsFilterElement of transactionsFilter1) {
 
-                    if (full_name_user === transactionsFilterElement.full_name_user) {
+                    if (name === transactionsFilterElement.user_name) {
                         transactions.push(transactionsFilterElement);
                     }
 
                     req.transactions = transactions;
                 }
-            }else if (start_data && end_data && !full_name_user) {
+            }else if (start_data && end_data && !user_name && family_id) {
 
                 req.transactions = await Transaction
                     .find({createdAt: {$gte: start_data, $lte: end_data}});
-            }else if (!start_data && !end_data && full_name_user) {
+            }else if (!start_data && !end_data && user_name && family_id) {
 
-                req.transactions = await Transaction.find({full_name_user});
+                req.transactions = await Transaction.find({user_name});
+            }else if (!start_data && !end_data && !user_name && family_id) {
+                req.transactions = await Transaction.find({family_id});
             }
 
             next();

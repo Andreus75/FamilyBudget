@@ -1,8 +1,11 @@
 export default function Transaction ({transaction}) {
-    const {sum, category, kind, full_name_user, createdAt} = transaction;
+    const {sum, category, kind, user_name, createdAt} = transaction;
     return (
         <div>
-            {full_name_user}, {category}, {kind},{createdAt}, {sum}$
+            {user_name} - {category}, {kind},{createdAt} - {sum}$
+            <button>update</button>
+            <button>delete</button>
+            <hr/>
         </div>
     );
 }

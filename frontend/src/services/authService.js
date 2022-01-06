@@ -1,14 +1,10 @@
+import axios from 'axios';
 let url = "http://localhost:5000/auth";
 
-const login = (body) => {
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    }).then(response => response.json())
-        .then((json) => console.log(json));
+const login = async (body) => {
+        const response = await axios.post(url + '/family', body);
+    console.log(response.data.access_token);
+        localStorage.setItem('auth', response.data.access_token);
 }
 const forgotPassword = (email) => {
     fetch(url + '/password/forgot', {

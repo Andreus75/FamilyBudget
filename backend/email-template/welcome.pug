@@ -1,0 +1,5 @@
+extends container
+block content
+    p Hi, family #{familyName}
+    p To activate your account go to
+        a(href=`http://localhost:5000/auth/activate/${token}`) here

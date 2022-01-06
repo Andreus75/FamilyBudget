@@ -13,6 +13,7 @@ module.exports = {
     HTTP: 'http://localhost:3000/',
 
     JWT_ACCESS_TOKEN: process.env.JWT_ACCESS_TOKEN || 'aaa',
+    JWT_ACTION_TOKEN: process.env.JWT_ACTION_TOKEN || 'ccc',
     JWT_REFRESH_TOKEN: process.env.JWT_REFRESH_TOKEN || 'rrr',
     JWT_ACTION_FORGOT_SECRET: process.env.JWT_ACTION_FORGOT_SECRET || 'fff',
 

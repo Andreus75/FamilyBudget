@@ -6,15 +6,16 @@ import User from "../user/User";
 
 export default function Users () {
 
-    let {users} = useSelector(state => state);
+    let {userReducer: {users}} = useSelector(state => state);
     let dispatch = useDispatch();
-    
-    useEffect(() => {
-        getUsers().then(value => dispatch({type: GET_USERS, payload: value}));
+
+    const auth =
+    useEffect(() => { getUsers().then(value => dispatch({type: GET_USERS, payload: value}));
     }, [dispatch]);
 
     return (
         <div>
+            <p>Users :</p>
             {
                 users.map(value => <User key={value.id} user={value}/>)
             }

@@ -16,6 +16,8 @@ router.get('/', userController.getUsers);
 
 router.get('/:user_id', userMiddleware.isUserExist, userController.getUserById);
 
+router.use(authMiddleware.chekAccessTokenWithUser);
+
 router.delete('/:user_id', userController.deleteUserById);
 
 router.put(

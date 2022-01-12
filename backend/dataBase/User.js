@@ -26,6 +26,13 @@ const userSchema = new Schema({
         type: String,
         trim: true
     },
+    password: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        select: false
+    },
     total: {
         type: Number,
         default: 0,

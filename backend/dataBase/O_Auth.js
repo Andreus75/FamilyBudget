@@ -15,6 +15,10 @@ const oAuthSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'family'
+    },
+    user_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
     }
 }, {timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 

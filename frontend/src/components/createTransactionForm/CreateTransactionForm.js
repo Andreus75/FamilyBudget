@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTransaction } from "../../services/transactionServise";
 import {ADD_TRANSACTION, GET_USERS} from "../../redux/actions/actions";
 import {getUsers} from "../../services/userServices";
@@ -7,11 +7,9 @@ import {getUsers} from "../../services/userServices";
 export default function CreateTransactionForm (props) {
 
     const { history } = props;
-    let {userReducer: {users}} = useSelector(state => state);
-    let dispatch = useDispatch();
-    // let state = useSelector(state => state);
 
-    let [user, setUser] = useState({});
+    let dispatch = useDispatch();
+
     let [sum, setSum] = useState('');
     let [category, setCategory] = useState('');
     let [kind, setKind] = useState('');
@@ -22,11 +20,6 @@ export default function CreateTransactionForm (props) {
         });
     },[dispatch]);
 
-    let selectUser = (e) => {
-        const id = e.target.value;
-        let userById = users.find(value => value._id === id);
-        setUser(userById || '');
-    }
     let addSum = (e) => {
         setSum(e.target.value);
     }
@@ -37,29 +30,18 @@ export default function CreateTransactionForm (props) {
         setKind(e.target.value);
     }
 
-    let createTransaction = (e) => {
+    let createTransaction = async (e) => {
         e.preventDefault();
-        const { name } = user;
-        let tempTransaction = {sum, category, kind, user_name: name};
 
-        addTransaction(tempTransaction).then(value => {
-            dispatch({type: ADD_TRANSACTION, payload: value});
-        });
-        history.push('/transactions/filter');
+        let tempTransaction = {sum, category, kind};
+
+        await addTransaction(tempTransaction);
+        history.push('/transactions');
     }
     return (
         <div>
             <form className="form_create_transaction" onSubmit={createTransaction}>
                 <h3>Please fill in this form to create your transaction.</h3>
-                <select className={'select_filter'} onChange={selectUser}>
-                    {
-                        users.map(value =>
-                            <option name="value" value={value.id} defaultValue={value.name}>
-                                {value.name}
-                            </option>
-                        )
-                    }
-                </select>
                 <br/>
                 <input type="text" name={'sum'} value={sum} onChange={addSum}
                        placeholder={'sum'}/>

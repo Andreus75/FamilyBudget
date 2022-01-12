@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { addUser } from "../../services/userServices";
-import {ADD_USER} from "../../redux/actions/actions";
+import { ADD_USER } from "../../redux/actions/actions";
 
 
 export default function CreateUserForm (props) {
     let { history } = props;
-    let {userReducer: {users}} = useSelector(state => state);
     let dispatch = useDispatch();
 
     let [name, setName] = useState('');
@@ -15,6 +14,7 @@ export default function CreateUserForm (props) {
     let [avatar, setAvatar] = useState('');
     let [status, setStatus] = useState('');
     let [role, setRole] = useState('');
+    let [password, setUserPassword] =useState('');
 
     let addUserName = (e) => {
         setName(e.target.value);
@@ -34,14 +34,17 @@ export default function CreateUserForm (props) {
     let changeRole = (e) => {
         setRole(e.target.value);
     }
+    let addUserPassword = (e) => {
+        setUserPassword(e.target.value);
+    }
 
     let save = (e) => {
         e.preventDefault();
-        let newUser = {name, born, email, status, role, avatar};
+        let newUser = {name, born, email, status, role, avatar, password};
         addUser(newUser).then(value => {
             dispatch({type: ADD_USER, payload: value})
         });
-        history.push('/transactions/filter');
+        history.push('/transactions');
     }
 
     return (
@@ -65,6 +68,8 @@ export default function CreateUserForm (props) {
                 </select>
                 <br/>
                 <input type="text" name={'email'} value={email} onChange={addUserEmail} placeholder={'email'}/>
+                <br/>
+                <input type="text" name={'user_password'} value={password} onChange={addUserPassword} placeholder={'user password'}/>
                 <br/>
                 <input type="text" name={'avatar'} value={avatar} onChange={addUserAvatar} placeholder={'avatar'}/>
                 <br/>

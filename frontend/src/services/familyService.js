@@ -11,7 +11,8 @@ const getFamilyById = (family_id) => {
 }
 
 const addFamily = async (family) => {
-    return await axios.post(url, family);
+
+    return await axios.post(url, family).then(res => console.log(res.data));
 }
 
 const deleteFamily = async (family_id) => {

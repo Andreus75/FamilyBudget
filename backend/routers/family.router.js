@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { familyMiddleware } = require('../middlewares');
 const { familyValidator } = require('../validators');
-const {familyController} = require('../controllers');
+const { familyController } = require('../controllers');
 
 router.post(
     '/',

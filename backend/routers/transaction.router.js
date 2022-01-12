@@ -6,12 +6,6 @@ const { transactionController } = require('../controllers');
 
 router.use(authMiddleware.chekAccessToken);
 
-router.post(
-    '/',
-    transactionMiddleware.isTransactionBodyValid(transactionValidator.createTransactionValidator),
-    transactionController.createTransaction
-);
-
 router.get('/', transactionController.findAllFamilyTransaction);
 
 router.get(
@@ -19,6 +13,15 @@ router.get(
     transactionMiddleware.findTransactionFilter,
     transactionController.filterTransaction
 );
+
+router.use(authMiddleware.chekAccessTokenWithUser);
+
+router.post(
+    '/',
+    transactionMiddleware.isTransactionBodyValid(transactionValidator.createTransactionValidator),
+    transactionController.createTransaction
+);
+
 
 router.get('/:transaction_id', transactionMiddleware.findTransactionById, transactionController.findTransactionById);
 

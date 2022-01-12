@@ -2,8 +2,8 @@ const { passwordService, jwtService, emailService} = require('../services');
 const { Family, Action} = require('../dataBase');
 const familyUtil = require('../util/family.util');
 const { SuccessCreated, SuccessNoContent} = require('../configs/error-enum');
-const {ACTION} = require('../configs/token-type-enum');
-const {WELCOME} = require('../configs/email-action-enum');
+const { ACTION } = require('../configs/token-type-enum');
+const { WELCOME } = require('../configs/email-action-enum');
 
 module.exports = {
     createFamily: async (req, res, next) => {
@@ -25,7 +25,6 @@ module.exports = {
             res
                 .status(SuccessCreated)
                 .json({ message: newFamilyNormalise });
-                // .message('Created successful');
         } catch (e) {
             next(e);
         }

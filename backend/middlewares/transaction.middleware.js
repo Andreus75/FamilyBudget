@@ -25,7 +25,7 @@ module.exports = {
         try {
             const { transaction_id } = req.params;
 
-            const transactionById = await Transaction.findById({_id: transaction_id});
+            const transactionById = await Transaction.findById({ _id: transaction_id });
 
             if (!transactionById) {
                 return next({

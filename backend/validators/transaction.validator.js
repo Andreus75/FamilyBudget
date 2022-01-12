@@ -10,7 +10,6 @@ const createTransactionValidator = Joi.object({
         .allow(...Object.values(transactionCategoryEnum))
         .required(),
     kind: Joi.string().allow(...Object.values(transactionKindEnum)),
-    user_name: Joi.string()
 });
 const updateTransactionValidator = Joi.object({
     sum: Joi.number()

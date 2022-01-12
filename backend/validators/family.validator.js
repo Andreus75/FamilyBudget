@@ -26,5 +26,5 @@ const familyNameAndPasswordValidator = Joi.object({
         .trim()
 });
 
-module.exports = {familyCreateValidator, familyNameAndPasswordValidator};
+module.exports = { familyCreateValidator, familyNameAndPasswordValidator };
 

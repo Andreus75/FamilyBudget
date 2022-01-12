@@ -12,7 +12,7 @@ export default function Header () {
                     <br/>
                     <Link to={'/contacts'}>Contacts</Link>
                     <Link to={'/createFamily'}>
-                        <button className='button_create_family'>Create family</button>
+                        <button className='button_create_family'>Create new family</button>
                     </Link>
                     <Link to={'/registration'}>
                         <button className='button_registration'>Login</button>

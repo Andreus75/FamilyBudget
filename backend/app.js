@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
+const fileUpload = require('express-fileupload');
 const cors = require('cors');
 
 require('dotenv').config();
@@ -15,6 +16,7 @@ mongoose.connect(MONGO_CONNECT_URL).then(() => {
     console.log('Mongo connect successfully');
 });
 
+app.use(fileUpload({}));
 app.use(cors({origin: 'http://localhost:3000'}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

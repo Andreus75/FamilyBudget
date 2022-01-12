@@ -1,16 +1,14 @@
 const { Transaction, User} = require('../dataBase');
 const { SuccessCreated, YOU_HAVE_NOT_RIGHTS, SuccessNoContent} = require('../configs/error-enum');
-const { emailService } = require('../services');
-const { emailActionEnum } = require('../configs');
+const {emailService} = require('../services');
+const {emailActionEnum} = require('../configs');
 
 module.exports = {
     createTransaction: async (req, res, next) => {
         try {
             const family = req.family;
-
-            const { sum, user_name } = req.body;
-
-            const user = await User.findOne({family_id: family._id, name: user_name});
+            const user = req.user;
+            const { sum } = req.body;
 
             user.total = user.total + sum;
 
@@ -48,7 +46,12 @@ module.exports = {
             const family_id = _id;
             const transactions = await Transaction.find({ family_id });
             for (const transaction of transactions) {
-                total = total + transaction.sum;
+                if (transaction.category === 'profit') {
+                    total = total + transaction.sum;
+                } else {
+                    total = total - transaction.sum;
+                }
+
             }
             res.json({transactions, total});
         } catch (e) {
@@ -71,6 +74,7 @@ module.exports = {
             const user = req.user;
             const { user_id } = req.transaction;
             const transaction = req.transaction;
+
             if (!user_id.equals(user._id)) {
                 return next({
                     message: YOU_HAVE_NOT_RIGHTS,
@@ -100,7 +104,11 @@ module.exports = {
             const transactions = req.transactions;
 
             for (const transaction of transactions) {
-                total = total + transaction.sum;
+                if (transaction.category === 'profit') {
+                    total = total + transaction.sum;
+                } else {
+                    total = total - transaction.sum;
+                }
             }
 
             res.json({transactions, total});

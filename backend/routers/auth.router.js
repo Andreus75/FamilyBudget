@@ -9,7 +9,9 @@ router.get('/activate/:token', authMiddleware.checkActivateToken, authController
 router.post(
     '/family',
     authMiddleware.authToEmail,
+    authMiddleware.authToUser,
     authMiddleware.authFamilyToPassword,
+    authMiddleware.authUserPassword,
     authController.family_login
 );
 

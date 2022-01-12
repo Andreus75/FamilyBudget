@@ -31,9 +31,11 @@ const addTransaction = async (transaction) => {
 
 const deleteTransaction = async (transaction_id) => {
     const localData = localStorage.getItem('auth');
+
     await fetch(url + '/' + transaction_id, {
-        method: 'DELETE'
-    }, {headers: {authorization: localData}});
+        method: 'DELETE',
+        headers: {authorization: localData}
+    });
 }
 
 const updateTransaction = async (data, transaction_id) => {

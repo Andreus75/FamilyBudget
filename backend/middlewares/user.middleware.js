@@ -1,4 +1,4 @@
-const {Error} = require('mongoose');
+const { Error } = require('mongoose');
 
 const {
     ClientErrorBadRequest,

@@ -28,7 +28,7 @@ export default function CreateFamily (props) {
         let newFamily = {family_name, email, password, avatar};
 
         const promise = await addFamily(newFamily);
-        setError(family_name + 'family' + promise.statusText)
+        // setError(family_name + 'family' + promise.statusText)
 
         history.push('/activation');
     }
@@ -48,7 +48,7 @@ export default function CreateFamily (props) {
                 <br/>
                 <input type="text" name={'password'} value={password} onChange={addFamilyPassword} placeholder={'password'}/>
                 <br/>
-                <input type="text" name={'avatar'} value={avatar} onChange={addFamilyAvatar} placeholder={'avatar'}/>
+                <input type="file" name={'avatar'} value={avatar} onChange={addFamilyAvatar} placeholder={'avatar'}/>
                 <br/>
                 <button>Create family</button>
             </form>

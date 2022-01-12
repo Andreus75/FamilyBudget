@@ -58,7 +58,7 @@ export default function FilterForm (props) {
                     <option name="value" value={'all users'}>all users</option>
                     {
                         users.map(value =>
-                            <option name="value" value={value.id} defaultValue={value.name}>
+                            <option name="value" value={value.id} defaultValue={value.name} key={value.id}>
                                 {value.name}
                             </option>
                         )

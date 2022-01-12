@@ -18,6 +18,11 @@ module.exports = {
     JWT_ACTION_FORGOT_SECRET: process.env.JWT_ACTION_FORGOT_SECRET || 'fff',
 
     USER_EMAIL: process.env.USER_EMAIL,
-    USER_PASSWORD: process.env.USER_PASSWORD
+    USER_PASSWORD: process.env.USER_PASSWORD,
+
+    AWS_S3_REGION: process.env.AWS_S3_REGION,
+    AWS_S3_NAME: process.env.AWS_S3_NAME,
+    AWS_S3_ACCESS_KEY: process.env.AWS_S3_ACCESS_KEY,
+    AWS_S3_SECRET_KEY: process.env.AWS_S3_SECRET_KEY
 };
 

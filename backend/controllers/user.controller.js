@@ -1,15 +1,21 @@
 const { User } = require('../dataBase');
 const { SuccessCreated, SuccessNoContent } = require('../configs/error-enum');
 const userUtil = require('../util/user.util');
+const { passwordService } = require('../services');
 
 module.exports = {
     createUser: async (req, res, next) => {
         try {
             const { _id } = req.family;
+            const { password } = req.body;
 
-            const newUser = await User.create({ ...req.body, family_id: _id});
+            const hashedPassword = await passwordService.hash(password);
 
-            res.json(newUser);
+            const newUser = await User.create({ ...req.body, family_id: _id, password: hashedPassword});
+
+            const newUserNormalise = userUtil.userNormalization(newUser);
+
+            res.json(newUserNormalise);
         } catch (e) {
             next(e);
         }

@@ -7,20 +7,30 @@ const { tokenTypeEnum, emailActionEnum, config : { HTTP } } = require('../config
 module.exports = {
     family_login: async (req, res, next) => {
         try {
-            console.log('family_login');
             const family = req.family;
+            const user = req.user;
 
-            const tokenPair = jwtService.generateTokenPair();
+            if (user) {
+                const tokenPair = jwtService.generateTokenPair();
 
-            await Family.updateOne(family, {is_login: true}, { new: true});
+                await Family.updateOne(family, {is_login: true}, {new: true});
 
-            await Auth.create({...tokenPair, family_id: family._id});
+                await Auth.create({...tokenPair, family_id: family._id, user_id: user._id});
 
-            res.json({family, ...tokenPair});
+                res.json({family, ...tokenPair});
+            }else {
+                const tokenPair = jwtService.generateTokenPair();
+
+                await Family.updateOne(family, {is_login: true}, {new: true});
+
+                await Auth.create({...tokenPair, family_id: family._id});
+
+                res.json({family, ...tokenPair});
+            }
         } catch (e) {
             next(e);
         }
-},
+    },
 
     logout: async (req, res, next) => {
         try {

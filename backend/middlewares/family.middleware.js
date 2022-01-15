@@ -1,14 +1,14 @@
 const {
     ClientErrorBadRequest,
     ClientErrorNotFound,
-    FAMILY_ALREADY_EXIST,
-    FAMILY_WITH_THIS_ID_IS_MISSING
+    FAMILY_ALREADY_EXIST
 } = require('../configs/error-enum');
 const { Family } = require('../dataBase');
 
 module.exports = {
     isBodyFamilyValid: (validator) => (req, res, next) => {
         try {
+            console.log('isBodyFamilyValid');
             const { error, value } = validator.validate(req.body);
 
             if (error) {
@@ -28,8 +28,8 @@ module.exports = {
 
     isFamilyEmailExist: async (req, res, next) => {
         try {
+            console.log('isFamilyEmailExist');
             const { email } = req.body;
-
             const family = await Family.findOne({ email });
 
             if (family) {
@@ -45,26 +45,24 @@ module.exports = {
         }
     },
 
-    isFamilyExist: async (req, res, next) => {
-        try {
-            const { family_id } = req.params;
-
-            const family = await Family.findOne({ family_id });
-
-            if (!family) {
-                return next({
-                    message: FAMILY_WITH_THIS_ID_IS_MISSING,
-                    status: ClientErrorNotFound
-                });
-            }
-
-            req.family = family;
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    }
+    // isFamilyExist: async (req, res, next) => {
+    //     try {
+    //         const family = req.family;
+    //
+    //         if (!family) {
+    //             return next({
+    //                 message: FAMILY_WITH_THIS_ID_IS_MISSING,
+    //                 status: ClientErrorNotFound
+    //             });
+    //         }
+    //
+    //         req.family = family;
+    //
+    //         next();
+    //     } catch (e) {
+    //         next(e);
+    //     }
+    // }
 
 
 };

@@ -27,7 +27,7 @@ export default function CreateFamily (props) {
         e.preventDefault();
         let newFamily = {family_name, email, password, avatar};
 
-        const promise = await addFamily(newFamily);
+        const promise = await addFamily(newFamily, avatar);
         // setError(family_name + 'family' + promise.statusText)
 
         history.push('/activation');

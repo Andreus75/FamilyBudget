@@ -1,22 +1,22 @@
 const router = require('express').Router();
 
-const { familyMiddleware } = require('../middlewares');
+const { familyMiddleware, fileMiddleware, authMiddleware} = require('../middlewares');
 const { familyValidator } = require('../validators');
 const { familyController } = require('../controllers');
 
 router.post(
     '/',
     familyMiddleware.isBodyFamilyValid(familyValidator.familyCreateValidator),
+    fileMiddleware.checkFamilyAvatar,
     familyMiddleware.isFamilyEmailExist,
     familyController.createFamily
 );
 
-router.get('/', familyController.getFamily);
+router.use(authMiddleware.chekAccessToken);
 
 router.get(
-    ':family_id',
-    familyMiddleware.isFamilyExist,
-    familyController.getFamilyById
+    '/',
+    familyController.getFamily
 );
 
 router.delete('/:family_id', familyController.deleteFamilyById);

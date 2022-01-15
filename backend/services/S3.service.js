@@ -1,4 +1,6 @@
 const S3 = require('aws-sdk/clients/s3');
+const path = require('path');
+const { nanoid} = require('nanoid');
 
 const { AWS_S3_REGION, AWS_S3_NAME, AWS_S3_ACCESS_KEY, AWS_S3_SECRET_KEY } = require('../configs/config');
 
@@ -9,8 +11,12 @@ const bucket = new S3({
 });
 
 module.exports = {
-    uploadImage: (file) => {
-        console.log(file);
+    uploadImage: (file = {}, itemType, itemId) => {
+        console.log('uploadImage');
+        const { name, data, mimetype } = file;
+
+        const uploadPath = fileNameBuilder(name, itemType, itemId);
+        console.log(uploadPath);
         return bucket
             .upload({
                 Bucket: AWS_S3_NAME,
@@ -23,4 +29,9 @@ module.exports = {
     }
 };
 
+function fileNameBuilder(fileName, itemType, itemId) {
+    const fileExtension = path.extname(fileName);
+
+    return path.join(itemType, itemId, `${nanoid()}${fileExtension}`);
+}
 

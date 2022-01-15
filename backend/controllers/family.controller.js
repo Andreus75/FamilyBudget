@@ -4,6 +4,7 @@ const familyUtil = require('../util/family.util');
 const { SuccessCreated, SuccessNoContent} = require('../configs/error-enum');
 const { ACTION } = require('../configs/token-type-enum');
 const { WELCOME } = require('../configs/email-action-enum');
+const s3Service = require('../services/S3.service');
 
 module.exports = {
     createFamily: async (req, res, next) => {
@@ -20,7 +21,18 @@ module.exports = {
 
             await emailService.sendMail(email, WELCOME, { familyName: family_name, token });
 
-            const newFamilyNormalise = familyUtil.familyNormalization(newFamily);
+            let newFamilyNormalise = familyUtil.familyNormalization(newFamily);
+
+            const { avatar } = req.files || {};
+
+            if (avatar) {
+                const uploadInfo = await s3Service.uploadImage(avatar, 'family', newFamilyNormalise._id.toString());
+
+                newFamilyNormalise = await Family.findByIdAndUpdate(
+                    newFamilyNormalise._id,
+                    { avatar: uploadInfo.Location},
+                    {new: true});
+            }
 
             res
                 .status(SuccessCreated)
@@ -40,7 +52,7 @@ module.exports = {
         }
     },
 
-    getFamilyById: (req, res, next) => {
+    getFamily: (req, res, next) => {
         try {
             const family = req.family;
 

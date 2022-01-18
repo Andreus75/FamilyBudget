@@ -28,10 +28,13 @@ module.exports = {
 
     updateTransaction: async (req, res, next) => {
         try {
-            const { _id } = req.transaction;
-            const { data, sum, category, kind } = req.body;
+            const {transaction_id} = req.params;
+            const { sum, category, kind } = req.body;
 
-            const updateTransaction = await Transaction.findByIdAndUpdate({_id}, { data, sum, category, kind }, {new: true});
+            const updateTransaction = await Transaction.findByIdAndUpdate(
+                {_id: transaction_id},
+                { sum, category, kind },
+                {new: true});
 
             res.status(SuccessCreated).json(updateTransaction);
         } catch (e) {

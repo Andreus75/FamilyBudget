@@ -40,6 +40,7 @@ const deleteTransaction = async (transaction_id) => {
 
 const updateTransaction = async (data, transaction_id) => {
     const localData = localStorage.getItem('auth');
+
     await fetch(url + '/' + transaction_id, {
         method: 'PUT',
         body: JSON.stringify(data),
@@ -47,7 +48,8 @@ const updateTransaction = async (data, transaction_id) => {
             'Content-type': 'application/json; charset=UTF-8',
             authorization: localData
         }
-    }).then(response => response.json());
+    }).then(response => response.json())
+        .then((json) => console.log(json));
 }
 
 export {getTransactions, findFilterTransactions, getTransactionById, addTransaction, updateTransaction, deleteTransaction};

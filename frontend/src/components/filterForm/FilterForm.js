@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FILTER_TRANSACTION, GET_USERS } from "../../redux/actions/actions";
 import { getUsers } from "../../services/userServices";
 import { findFilterTransactions } from "../../services/transactionServise";
+import {getFamily} from "../../services/familyService";
 
 export default function FilterForm (props) {
 
@@ -14,12 +15,19 @@ export default function FilterForm (props) {
     let [user_name, setUserName] = useState('');
     let [start_data, setStart_data] = useState('');
     let [end_data, setEnd_data] = useState('');
+    const [family, setFamily] = useState({});
 
     useEffect(() => {
         getUsers().then(value => {
             dispatch({type: GET_USERS, payload: value});
         });
     },[dispatch]);
+
+    useEffect(() => {
+        getFamily().then(value => setFamily(value));
+    }, []);
+
+    const {avatar} = family;
 
     let selectUser = (e) => {
         const id = e.target.value;
@@ -52,6 +60,7 @@ export default function FilterForm (props) {
     return (
         <div>
             <p>Filter Transactions</p>
+            <img src={avatar}/>
             <hr/>
             <form className={'filter_form'} onSubmit={filterTransaction}>
                 <select className={'select_filter'} onChange={selectUser}>

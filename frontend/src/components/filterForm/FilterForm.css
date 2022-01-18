@@ -4,3 +4,8 @@
 .select_filter {
     margin: 10px;
 }
+
+img {
+    width: 100%;
+    height: 30%;
+}

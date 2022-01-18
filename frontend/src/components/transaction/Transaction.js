@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
-import {deleteTransaction} from "../../services/transactionServise";
+import {deleteTransaction, updateTransaction} from "../../services/transactionServise";
 
-export default function Transaction ({transaction}) {
+export default function Transaction ({transaction, history}) {
 
     const {sum, category, kind, user_name, createdAt, _id} = transaction;
 
@@ -9,11 +9,24 @@ export default function Transaction ({transaction}) {
         e.preventDefault();
         await deleteTransaction(_id);
     }
+
+    const updateT = async (e) => {
+        e.preventDefault();
+
+        const data = {sum, category, kind};
+        console.log(`/transaction/update/${transaction._id}`);
+        history.push(`/transaction/update/${transaction._id}`);
+    }
+
     return (
         <div>
             {user_name} - {category}, {kind},{createdAt} - {sum}$
-            <Link to={'/transaction/update'}><button>update</button></Link>
-            <Link to={'/transactions'}><button onClick={del}>delete</button></Link>
+            {/*<Link to={'/transaction/update'}>*/}
+                <button onClick={updateT}>update</button>
+            {/*</Link>*/}
+            <Link to={'/transactions'}>
+                <button className='btn_delete_transaction' onClick={del}>delete</button>
+            </Link>
             <hr/>
         </div>
     );

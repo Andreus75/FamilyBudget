@@ -12,6 +12,7 @@ import Transactions from "../transactions/Transactions";
 import TransactionUpdate from "../transactionUpdate/TransactionUpdate";
 
 export default function Main() {
+
     return (
         <div className={'main'}>
             <div className="filter_section">
@@ -24,7 +25,7 @@ export default function Main() {
                 <Switch>
                     <Route path={'/functionForRegistrationFamily'} component={FunctionForRegistrationFamily}/>
                     <Route path={'/transactions/filter'} component={TransactionsFilter}/>
-                    <Route path={'/transactions/update'} component={TransactionUpdate}/>
+                    <Route path={'/transaction/update/:id'} component={TransactionUpdate}/>
                     <Route path={'/transactions'} component={Transactions}/>
 
                     <Route path={'/activation'} component={ActivatedFamily}/>

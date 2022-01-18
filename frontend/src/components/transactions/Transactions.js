@@ -5,7 +5,8 @@ import {GET_TRANSACTIONS} from "../../redux/actions/actions";
 import Transaction from "../transaction/Transaction";
 import { Link } from "react-router-dom";
 
-export default function Transactions () {
+export default function Transactions (props) {
+    const { history } = props;
 
     let {transactionsReducer: {transactions, total}} = useSelector(state => state);
     let dispatch = useDispatch();
@@ -30,7 +31,7 @@ export default function Transactions () {
             </div>
             <hr/>
             {
-                transactions.map(value => <Transaction key={value.id} transaction={value}/>)
+                transactions.map(value => <Transaction key={value.id} transaction={value} history={history}/>)
             }
             <h3>Total : {total}$</h3>
         </div>

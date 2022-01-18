@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import { addTransaction } from "../../services/transactionServise";
-import {ADD_TRANSACTION, GET_USERS} from "../../redux/actions/actions";
-import {getUsers} from "../../services/userServices";
+import { GET_USERS } from "../../redux/actions/actions";
+import { getUsers } from "../../services/userServices";
 
 export default function CreateTransactionForm (props) {
 

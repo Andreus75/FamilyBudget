@@ -19,7 +19,7 @@ module.exports = {
             }
 
             if (size > PHOTO_MAX_SIZE) {
-                console.log('size');
+
                 return next({
                     message: `File ${name} is too big`,
                     status: ClientErrorBadRequest

@@ -18,8 +18,11 @@
     width: 100px;
     height: 100px;
 }
+.logo img {
+    width: 100px;
+    height: 100px;
+}
 .header_nav {
-    background: silver;
     display: flex;
     width: 70%;
     margin-left: auto;

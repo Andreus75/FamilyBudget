@@ -4,12 +4,15 @@ let url = 'http://localhost:5000/family';
 
 const getFamily = async () => {
     const localData = localStorage.getItem('auth');
-    // fetch(url).then(value => value.json());
-    await axios.get(url, {
-        headers: {
-            authorization: localData
-    }
-    }).then(res => res.data);
+    return await fetch(url, {
+            headers: {
+                authorization: localData
+        }}).then(value => value.json());
+    // return await axios.get(url, {
+    //     headers: {
+    //         authorization: localData
+    // }
+    // }).then(res => console.log('getFamily' + res.data));
 }
 
 const addFamily = async (family, avatar) => {

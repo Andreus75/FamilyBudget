@@ -6,7 +6,7 @@ export default function Header () {
     return (
         <div className="header">
             <div className="container_header">
-                <a href="/" className="logo">LOGO</a>
+                <a href="/" className="logo"><img src="/images/family-icon-png_1275470.png" alt="LOGO"/></a>
                 <div className="name_application">Family Budget</div>
                 <div className={"header_nav"}>
                     <Link to={'/rules'}>Rules</Link>

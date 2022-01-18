@@ -12,11 +12,10 @@ const bucket = new S3({
 
 module.exports = {
     uploadImage: (file = {}, itemType, itemId) => {
-        console.log('uploadImage');
         const { name, data, mimetype } = file;
 
         const uploadPath = fileNameBuilder(name, itemType, itemId);
-        console.log(uploadPath);
+
         return bucket
             .upload({
                 Bucket: AWS_S3_NAME,

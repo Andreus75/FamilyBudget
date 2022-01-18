@@ -42,15 +42,15 @@ module.exports = {
         }
     },
 
-    getFamily: async (req, res, next) => {
-        try {
-            const family = await Family.find();
-
-            res.json(family);
-        } catch (e) {
-            next(e);
-        }
-    },
+    // getFamily: async (req, res, next) => {
+    //     try {
+    //         const family = await Family.find();
+    //
+    //         res.json(family);
+    //     } catch (e) {
+    //         next(e);
+    //     }
+    // },
 
     getFamily: (req, res, next) => {
         try {

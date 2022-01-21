@@ -1,3 +1,5 @@
+import axios from "axios";
+
 let url = "http://localhost:5000/transactions"
 
 const getTransactions = async () => {
@@ -30,26 +32,22 @@ const addTransaction = async (transaction) => {
 }
 
 const deleteTransaction = async (transaction_id) => {
+
     const localData = localStorage.getItem('auth');
 
-    await fetch(url + '/' + transaction_id, {
-        method: 'DELETE',
-        headers: {authorization: localData}
-    });
+    return await axios.delete(
+        url + '/' + transaction_id,
+        {headers: {authorization: localData}});
 }
 
-const updateTransaction = async (data, transaction_id) => {
+const updateTransaction = async (body, transaction_id) => {
     const localData = localStorage.getItem('auth');
 
-    await fetch(url + '/' + transaction_id, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            authorization: localData
-        }
-    }).then(response => response.json())
-        .then((json) => console.log(json));
+    return  await axios.put(
+        url + '/' + transaction_id,
+        body,
+        {headers: {authorization: localData}}
+        );
 }
 
 export {getTransactions, findFilterTransactions, getTransactionById, addTransaction, updateTransaction, deleteTransaction};

@@ -12,13 +12,13 @@ module.exports = {
     USER_IS_NOT_ACTIVE: 'User is not active',
     USER_NOT_FOUND: 'User not found',
     NOT_SUPPORTED_FORMAT: 'Not supported format',
-    YOU_HAVE_NOT_RIGHTS: 'You have no rights',
+    YOU_HAVE_NOT_RIGHTS: 'You have not rights',
     FAMILY_ALREADY_EXIST: 'Family with this email already exist',
     FAMILY_WITH_THIS_ID_IS_MISSING: 'Family with this id is missing',
     FAMILY_EMAIL_OR_PASSWORD_IS_WRONG: 'Family email or password is wrong',
     FAMILY_IS_ACTIVE: 'Family is active',
     ACTIVATE_FAMILY: 'You should activate your family',
-
+    YOU_MUST_REGISTER_AS_USER: 'you must register as user',
 
     SuccessOK: 200,
     SuccessCreated: 201,

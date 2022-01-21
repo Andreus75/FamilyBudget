@@ -41,9 +41,10 @@ export default function CreateUserForm (props) {
     let save = (e) => {
         e.preventDefault();
         let newUser = {name, born, email, status, role, avatar, password};
-        addUser(newUser).then(value => {
+        const promise = addUser(newUser).then(value => {
             dispatch({type: ADD_USER, payload: value})
         });
+        console.log(promise);
         history.push('/transactions');
     }
 

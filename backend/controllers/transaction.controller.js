@@ -1,7 +1,7 @@
 const { Transaction, User} = require('../dataBase');
-const { SuccessCreated, YOU_HAVE_NOT_RIGHTS, SuccessNoContent} = require('../configs/error-enum');
-const {emailService} = require('../services');
-const {emailActionEnum} = require('../configs');
+const { SuccessCreated, YOU_HAVE_NOT_RIGHTS } = require('../configs/error-enum');
+const { emailService } = require('../services');
+const { emailActionEnum } = require('../configs');
 
 module.exports = {
     createTransaction: async (req, res, next) => {
@@ -30,6 +30,16 @@ module.exports = {
         try {
             const {transaction_id} = req.params;
             const { sum, category, kind } = req.body;
+            const user = req.user;
+            const { user_id } = req.transaction;
+
+            if (!user_id.equals(user._id)) {
+
+                return next({
+                    message: YOU_HAVE_NOT_RIGHTS,
+                    status: SuccessCreated
+                });
+            }
 
             const updateTransaction = await Transaction.findByIdAndUpdate(
                 {_id: transaction_id},
@@ -79,9 +89,10 @@ module.exports = {
             const transaction = req.transaction;
 
             if (!user_id.equals(user._id)) {
+
                 return next({
                     message: YOU_HAVE_NOT_RIGHTS,
-                    status: SuccessNoContent
+                    status: SuccessCreated
                 });
             }
 

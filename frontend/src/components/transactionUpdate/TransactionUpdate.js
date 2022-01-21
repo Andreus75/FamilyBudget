@@ -8,6 +8,7 @@ export default function TransactionUpdate (props) {
     let [sum, setSum] = useState('');
     let [category, setCategory] = useState('');
     let [kind, setKind] = useState('');
+    let [error_message, setErrorMessage] = useState('');
 
     let addSum = (e) => {
         setSum(e.target.value);
@@ -24,15 +25,20 @@ export default function TransactionUpdate (props) {
 
         let updateData = {sum, category, kind};
 
-        await updateTransaction(updateData, id);
+        const response = await updateTransaction(updateData, id);
 
-        history.push('/transactions');
+        if (response.data.status !== 200){
+            setErrorMessage(response.data.msg);
+        } else {
+            history.push('/transactions');
+        }
+
     }
 
     return (
         <div>
-
-transaction update
+            <p className="error_message">{error_message}</p>
+            <h3>transaction update</h3>
             <form className="form_update_transaction" onSubmit={updateTr}>
             <input type="text" name={'sum'} value={sum} onChange={addSum}
                    placeholder={'sum'}/>
@@ -58,6 +64,7 @@ transaction update
                 <option name="value" value={"children circles"}>children circles</option>
                 <option name="value" value={"teaching"}>teaching</option>
             </select>
+                <br/>
                 <button>update</button>
             </form>
         </div>

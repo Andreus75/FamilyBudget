@@ -5,7 +5,7 @@ const {
     INVALID_TOKEN,
     ClientErrorUnauthorized,
     FAMILY_EMAIL_OR_PASSWORD_IS_WRONG,
-    ACTIVATE_FAMILY
+    ACTIVATE_FAMILY, YOU_MUST_REGISTER_AS_USER
 } = require('../configs/error-enum');
 const { passwordService, jwtService} = require('../services');
 const { AUTHORIZATION } = require('../configs/constants');
@@ -166,13 +166,12 @@ module.exports = {
 
             const registrationFamilyUser = await Auth.findOne({access_token: token}).populate('user_id');
 
-            if (!registrationFamilyUser) {
+            if (!registrationFamilyUser.user_id) {
                 return next({
-                    message: INVALID_TOKEN,
+                    message: YOU_MUST_REGISTER_AS_USER,
                     status: ClientErrorUnauthorized
                 });
-            }
-
+            } 
             req.user = registrationFamilyUser.user_id;
 
             next();

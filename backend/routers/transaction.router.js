@@ -22,12 +22,12 @@ router.post(
     transactionController.createTransaction
 );
 
-
 router.get('/:transaction_id', transactionMiddleware.findTransactionById, transactionController.findTransactionById);
 
 router.put(
     '/:transaction_id',
     transactionMiddleware.isTransactionBodyValid(transactionValidator.updateTransactionValidator),
+    transactionMiddleware.findTransactionById,
     transactionController.updateTransaction
 );
 

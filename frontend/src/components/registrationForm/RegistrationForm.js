@@ -11,6 +11,7 @@ export default function RegistrationForm (props) {
     let [family_password, setFamilyPassword] = useState('');
     let [user_name, setUserName] = useState('');
     let [user_password, setUserPassword] = useState('');
+    let [error_message, setErrorMessage] = useState('');
 
     let addEmail = (e) => {
         setEmail(e.target.value);
@@ -30,14 +31,20 @@ export default function RegistrationForm (props) {
 
         let body = {email, family_password, user_name, user_password };
 
-        await login(body);
+        const res = await login(body);
 
-        history.push('/transactions');
+        if (res.status === 404) {
+            setErrorMessage(res.data.msg);
+        } else {
+            history.push('/transactions');
+        }
+
     }
 
     return (
         <div className="registration">
             <div>
+                <p className="error_message">{error_message}</p>
             </div>
             <form className="form_registration" onSubmit={registration}>
                 <h3>Please fill in this form to login your account.</h3>

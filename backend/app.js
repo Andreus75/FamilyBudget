@@ -29,6 +29,16 @@ app.use('/auth', authRouter);
 app.use('/transactions', transactionRouter);
 app.use('/users', userRouter);
 
+// eslint-disable-next-line no-unused-vars
+app.use('*', (err, req, res, next) => {
+
+    res
+        .status(err.status || 500)
+        .json({
+            msg: err.message
+        });
+});
+
 app.listen(PORT, HOST,() => {
     console.log(`App listen ${PORT}`);
     startCron();

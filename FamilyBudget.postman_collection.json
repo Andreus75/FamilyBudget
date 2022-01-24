@@ -1,0 +1,680 @@
+{
+	"info": {
+		"_postman_id": "6de2f018-0b26-481a-b398-7d9356350668",
+		"name": "FamilyBudget",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Andriy\",\r\n    \"born\": \"10-04-1975\",\r\n    \"status\": \"working\",\r\n    \"role\": \"admin\",\r\n    \"email\": \"tryndeyandriy@gmail.comm\",\r\n    \"password\": \"Hello_World!1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/users/619ad02ddc780bfecc1c187b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"619ad02ddc780bfecc1c187b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updadeUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"Vaska Pupkin\",\r\n    \"email\": \"vasa@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/users/619ace9b2102beccfba85cb4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"619ace9b2102beccfba85cb4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/users/61eece5186d7579b386372d5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"61eece5186d7579b386372d5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwNDA5MzcsImV4cCI6MTY0MzA0MjczN30.Q4_8pQ2B8fAf0UXUbKeJTGSoylmz4W4BxHeMqCvrwtE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Andry\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/users/61eece5186d7579b386372d5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"61eece5186d7579b386372d5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authorization",
+			"item": [
+				{
+					"name": "logoutUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzc1OTY2NzMsImV4cCI6MTYzNzU5NzU3M30.D6jNdz-fAP1ZnGzhIC6QX9Idyfwx316rmA1yUCZ08_4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeForgotPassword",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzc5MjA3MzgsImV4cCI6MTYzODAwNzEzOH0.Yicq-HZXc2Oyce19HPRLRMbU0XCHy9XL9Gn_qeirJSA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"Hello_World!12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/password/forgot",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"password",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgotPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tryndeyandriy@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/password/forgot",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"password",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authFamily",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tryndeyandriy@gmail.com\",\r\n    \"family_password\": \"Hello_World!1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/family",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"family"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authFamilyAsUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzk5NTAzMTUsImV4cCI6MTYzOTk1MTIxNX0.vhU3Bi1S-GcM2qMLf_iuQzCnp65XzXiAqCOST81pcYI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tryndeyandriy@gmail.com\",\r\n    \"family_password\": \"Hello_World!1\",\r\n    \"user_name\": \"Andriy\",\r\n    \"user_password\":\"Hello_World!1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/family",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"family"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "createTransaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwNDA5MzcsImV4cCI6MTY0MzA0MjczN30.Q4_8pQ2B8fAf0UXUbKeJTGSoylmz4W4BxHeMqCvrwtE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sum\": 500,\r\n    \"category\": \"leisure\",\r\n    \"kind\": \"travel\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTransaction",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDI3Njk2NjgsImV4cCI6MTY0Mjc3MTQ2OH0.VeGsKOlLOlL9kYDBeW-WtAeP6G5apptjCNnsiY2M3R8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/transactions/61dd71ba18b0f1f80be9954d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions",
+								"61dd71ba18b0f1f80be9954d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filterTransaction",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"family_id\": \"61eecbd686d7579b386372c1\",\r\n    \"user_name\": \"Andriy\",\r\n    \"start_data\": \"21-01-2022\",\r\n    \"end_data\": \"25-01-2022\",\r\n    \"category\": \"leisure\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/transactions/filters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions",
+								"filters"
+							],
+							"query": [
+								{
+									"key": "start_data",
+									"value": "2021-12-17",
+									"disabled": true
+								},
+								{
+									"key": "end_data",
+									"value": "2021-12-20",
+									"disabled": true
+								},
+								{
+									"key": "user_name",
+									"value": "Andriy",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTransactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTransactionById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwNDE4NTksImV4cCI6MTY0MzA0MzY1OX0.HwbDQcqwv_Glyl_KNptXzjrYuTa8ado5j_sLgwwHxNs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/transactions/61eed16b86d7579b386372f3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions",
+								"61eed16b86d7579b386372f3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTransaction",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwNDE4NTksImV4cCI6MTY0MzA0MzY1OX0.HwbDQcqwv_Glyl_KNptXzjrYuTa8ado5j_sLgwwHxNs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sum\": 700,\r\n    \"category\": \"leisure\",\r\n    \"kind\": \"travel\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/transactions/61eed16b86d7579b386372f3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions",
+								"61eed16b86d7579b386372f3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "family",
+			"item": [
+				{
+					"name": "createFamily",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "family_name",
+									"value": "Tryndey",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "tryndeyandriy@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Hello_World!1",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"type": "file",
+									"src": "/C:/foto/Мої забіги/Одесса2021 півмарафон/4638292963885056 (1).jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/family",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"family"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetFamily",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/family",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"family"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFamily",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMwMzk5MjEsImV4cCI6MTY0MzA0MTcyMX0.IzN1Pl-MZVAp3xIMDc-vwBRALV-BraMUuCGNyTiYaz0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/family",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"family"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

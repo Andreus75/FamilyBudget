@@ -10,6 +10,8 @@ import CreateTransactionForm from "../createTransactionForm/CreateTransactionFor
 import ActivatedFamily from "../activatedForm/ActivatedFamily";
 import Transactions from "../transactions/Transactions";
 import TransactionUpdate from "../transactionUpdate/TransactionUpdate";
+import StartPage from "../startPage/StartPage";
+import Contacts from "../Contacts";
 
 export default function Main() {
 
@@ -30,11 +32,14 @@ export default function Main() {
 
                     <Route path={'/activation'} component={ActivatedFamily}/>
                     <Route path={'/rules'} component={Rules}/>
+                    <Route path={'/contacts'} component={Contacts}/>
 
                     <Route path={'/registration'} component={RegistrationForm}/>
                     <Route path={'/createFamily'} component={CreateFamily}/>
                     <Route path={'/createUser'} component={CreateUserForm}/>
                     <Route path={'/createTransaction'} component={CreateTransactionForm}/>
+
+                    <Route path={'/'} component={StartPage}/>
                 </Switch>
             </div>
 

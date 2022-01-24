@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FILTER_TRANSACTION, GET_USERS } from "../../redux/actions/actions";
 import { getUsers } from "../../services/userServices";
 import { findFilterTransactions } from "../../services/transactionServise";
-import {getFamily} from "../../services/familyService";
+import { getFamily } from "../../services/familyService";
 
 export default function FilterForm (props) {
 
@@ -16,6 +16,7 @@ export default function FilterForm (props) {
     let [start_data, setStart_data] = useState('');
     let [end_data, setEnd_data] = useState('');
     const [family, setFamily] = useState({});
+    const [category, setCategory] = useState('');
 
     useEffect(() => {
         getUsers().then(value => {
@@ -47,10 +48,13 @@ export default function FilterForm (props) {
         setEnd_data(end_data || '');
     }
 
+    let inputCategory = (e) => {
+        setCategory(e.target.value);
+    }
+
     const filterTransaction = (e) => {
         e.preventDefault();
-
-        findFilterTransactions(start_data, end_data, user_name).then(value => {
+        findFilterTransactions(start_data, end_data, user_name, category).then(value => {
             dispatch({type: FILTER_TRANSACTION, payload: value});
         });
 
@@ -64,7 +68,7 @@ export default function FilterForm (props) {
             <hr/>
             <form className={'filter_form'} onSubmit={filterTransaction}>
                 <select className={'select_filter'} onChange={selectUser}>
-                    <option name="value" value={'all users'}>all users</option>
+                    <option name="value" value={"allUser"}>all users</option>
                     {
                         users.map(value =>
                             <option name="value" value={value.id} defaultValue={value.name} key={value.id}>
@@ -76,6 +80,15 @@ export default function FilterForm (props) {
                 <br/>
                 <input type="date" name={'start_data'} value={start_data} onInput={addStartData}/>
                 <input type="date" name={'end_data'} value={end_data} onInput={addEndData}/>
+                <select name="select" onInput={inputCategory} placeholder={'category'}>
+                    <option name="value" value={""}>allCategory</option>
+                    <option name="value" value={"profit"}>profit</option>
+                    <option name="value" value={"household"}>household</option>
+                    <option name="value" value={"leisure"}>leisure</option>
+                    <option name="value" value={"health"}>health</option>
+                    <option name="value" value={"teaching"}>teaching</option>
+                    <option name="value" value={"other"}>other</option>
+                </select>
                 <button>filter</button>
             </form>
         </div>

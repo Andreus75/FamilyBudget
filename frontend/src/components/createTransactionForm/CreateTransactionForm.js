@@ -50,20 +50,21 @@ export default function CreateTransactionForm (props) {
                     <option name="value" value={"profit"}>profit</option>
                     <option name="value" value={"household"}>household</option>
                     <option name="value" value={"leisure"}>leisure</option>
-                    <option name="value" value={"travel"}>travel</option>
-                    <option name="value" value={"products"}>products</option>
-                    <option name="value" value={"pocket"}>pocket</option>
-                    <option name="value" value={"unpredictable"}>unpredictable</option>
                     <option name="value" value={"health"}>health</option>
+                    <option name="value" value={"teaching"}>teaching</option>
+                    <option name="value" value={"other"}>other</option>
                 </select>
                 <br/>
                 <select name="select" onInput={inputKind} placeholder={'kind'}>
-                    <option name="value" value={"machinery"}>machinery</option>
                     <option name="value" value={"food"}>food</option>
                     <option name="value" value={"clothes"}>clothes</option>
-                    <option name="value" value={"medicine"}>medicine</option>
-                    <option name="value" value={"services"}>services</option>
+                    <option name="value" value={"machinery"}>machinery</option>
                     <option name="value" value={"moving"}>moving</option>
+                    <option name="value" value={"services"}>services</option>
+                    <option name="value" value={"travel"}>travel</option>
+                    <option name="value" value={"pocket"}>pocket</option>
+                    <option name="value" value={"medicine"}>medicine</option>
+                    <option name="value" value={"visit to doctor"}>visit to doctor</option>
                     <option name="value" value={"children circles"}>children circles</option>
                     <option name="value" value={"teaching"}>teaching</option>
                 </select>

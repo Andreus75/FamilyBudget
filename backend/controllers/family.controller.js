@@ -1,7 +1,7 @@
 const { passwordService, jwtService, emailService} = require('../services');
 const { Family, Action} = require('../dataBase');
 const familyUtil = require('../util/family.util');
-const { SuccessCreated, SuccessNoContent} = require('../configs/error-enum');
+const { SuccessCreated, SuccessNoContent, YOU_HAVE_NOT_RIGHTS} = require('../configs/error-enum');
 const { ACTION } = require('../configs/token-type-enum');
 const { WELCOME } = require('../configs/email-action-enum');
 const s3Service = require('../services/S3.service');
@@ -42,16 +42,6 @@ module.exports = {
         }
     },
 
-    // getFamily: async (req, res, next) => {
-    //     try {
-    //         const family = await Family.find();
-    //
-    //         res.json(family);
-    //     } catch (e) {
-    //         next(e);
-    //     }
-    // },
-
     getFamily: (req, res, next) => {
         try {
             const family = req.family;
@@ -66,9 +56,17 @@ module.exports = {
 
     deleteFamilyById: async (req, res, next) => {
         try {
-            const { family_id } = req.params;
+            const family = req.family;
+            const user = req.user;
 
-            await Family.findOneAndDelete({_id: family_id});
+            if (user.role !== 'admin') {
+                return next({
+                    message: YOU_HAVE_NOT_RIGHTS,
+                    status: SuccessCreated
+                });
+            }
+
+            await Family.deleteOne(family);
 
             res.sendStatus(SuccessNoContent);
         } catch (e) {

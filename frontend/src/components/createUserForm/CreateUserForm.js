@@ -12,8 +12,8 @@ export default function CreateUserForm (props) {
     let [born, setBorn] = useState('');
     let [email, setEmail] = useState('');
     let [avatar, setAvatar] = useState('');
-    let [status, setStatus] = useState('');
-    let [role, setRole] = useState('');
+    let [status, setStatus] = useState('working');
+    let [role, setRole] = useState('user');
     let [password, setUserPassword] =useState('');
 
     let addUserName = (e) => {
@@ -56,16 +56,16 @@ export default function CreateUserForm (props) {
                 <br/>
                 <input type="text" name={'born'} value={born} onChange={addUserBorn} maxLength={20} placeholder={'born'}/>
                 <br/>
-                <select name="select" onChange={changeStatus} placeholder={'status'}>
+                <select name="select" onChange={changeStatus} placeholder={'status'} defaultValue={"working"}>
                     <option name="value" value={"working"}>working</option>
                     <option name="value" value={"unemployed"}>unemployed</option>
                     <option name="value" value={"student"}>student</option>
                     <option name="value" value={"pensioner"}>pensioner</option>
                 </select>
                 <br/>
-                <select name="select" onChange={changeRole} placeholder={'role'}>
-                    <option name="value" value={"admin"}>admin</option>
+                <select name="select" onChange={changeRole} placeholder={'role'} defaultValue={"user"}>
                     <option name="value" value={"user"}>user</option>
+                    <option name="value" value={"admin"}>admin</option>
                 </select>
                 <br/>
                 <input type="text" name={'email'} value={email} onChange={addUserEmail} placeholder={'email'}/>

@@ -14,11 +14,10 @@ router.post(
 
 router.use(authMiddleware.chekAccessToken);
 
-router.get(
-    '/',
-    familyController.getFamily
-);
+router.get('/', familyController.getFamily);
 
-router.delete('/:family_id', familyController.deleteFamilyById);
+router.use(authMiddleware.chekAccessTokenWithUser);
+
+router.delete('/', familyController.deleteFamilyById);
 
 module.exports = router;

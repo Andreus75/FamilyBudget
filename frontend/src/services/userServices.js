@@ -17,7 +17,6 @@ const getUserById = async (user_id) => {
 }
 
 const addUser = async (user) => {
-    // try {
         const localData = localStorage.getItem('auth');
 
         await fetch(url, {
@@ -30,21 +29,16 @@ const addUser = async (user) => {
         }).then(response => response.json())
             .then((json) => console.log(json))
             .catch(response => console.log(response))
-    // } catch (e) {
-    //     console.log(e.response);
-    //     return e.response;
-    // }
-
 }
 
 const deleteUser = async (user_id) => {
     try {
-        const localData = localStorage.getItem('auth');
+        // const localData = localStorage.getItem('auth');
         const response = await fetch(url + '/' + user_id, {
             method: 'DELETE'
         });
+        console.log(response);
     } catch (e) {
-        console.log('error');
         console.log(e.response.data);
     }
 }

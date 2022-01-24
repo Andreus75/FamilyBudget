@@ -8,7 +8,6 @@ export default function CreateFamily (props) {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
     let [avatar, setAvatar] = useState('');
-    let [error, setError] = useState('');
 
     let addFamilyName = (e) => {
         setFamilyName(e.target.value);
@@ -27,8 +26,7 @@ export default function CreateFamily (props) {
         e.preventDefault();
         let newFamily = {family_name, email, password, avatar};
 
-        const promise = await addFamily(newFamily, avatar);
-        // setError(family_name + 'family' + promise.statusText)
+        await addFamily(newFamily, avatar);
 
         history.push('/activation');
     }
@@ -36,9 +34,6 @@ export default function CreateFamily (props) {
 
     return (
         <div>
-            <div>
-                {error}
-            </div>
             <form onSubmit={save}>
                 <h3>Create new Family</h3>
 

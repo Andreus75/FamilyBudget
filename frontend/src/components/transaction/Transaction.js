@@ -28,7 +28,7 @@ export default function Transaction ({ transaction, history }) {
     return (
         <div>
             <p className="error_message">{error_message}</p>
-            {user_name} - {category}, {kind},{createdAt} - {sum}$
+            <p>{user_name} - {category}, {kind},{createdAt} - {sum}$</p>
             <button onClick={updateT}>update</button>
 
             <Link to={'/transactions'}>
@@ -36,7 +36,7 @@ export default function Transaction ({ transaction, history }) {
             </Link>
 
             <hr/>
-
         </div>
+
     );
 }

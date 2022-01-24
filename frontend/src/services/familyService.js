@@ -29,10 +29,13 @@ const addFamily = async (family, avatar) => {
     }).then(res => console.log(res.data));
 }
 
-const deleteFamily = async (family_id) => {
-    await fetch(url + '/' + family_id, {
-        method: 'DELETE'
+const deleteFamily = async () => {
+    const localData = localStorage.getItem('auth');
+
+    return await axios.delete(url, {
+        headers: {authorization: localData}
     });
+
 }
 
 export {getFamily, addFamily, deleteFamily};

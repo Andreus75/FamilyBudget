@@ -7,9 +7,9 @@ const getTransactions = async () => {
     return await fetch(url, {headers: {authorization: localData}}
     ).then(value => value.json());
 }
-const findFilterTransactions = async (start_data, end_data, user_name) => {
+const findFilterTransactions = async (start_data, end_data, user_name, category) => {
     const localData = localStorage.getItem('auth');
-    return await fetch(url + '/filters?start_data=' + start_data + '&end_data=' + end_data + '&user_name=' + user_name, {headers: {authorization: localData}}).then(value => value.json());
+    return await fetch(url + '/filters?start_data=' + start_data + '&end_data=' + end_data + '&user_name=' + user_name + '&category=' + category, {headers: {authorization: localData}}).then(value => value.json());
 }
 
 const getTransactionById = async (transaction_id) => {

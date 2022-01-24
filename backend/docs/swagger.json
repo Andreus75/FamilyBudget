@@ -10,6 +10,10 @@
   },
   "tags": [
     {
+      "name": "family",
+      "description": "Everything about family"
+    },
+    {
       "name": "users",
       "description": "Everything about users"
     },
@@ -23,6 +27,82 @@
     }
   ],
   "paths": {
+    "/family": {
+      "post": {
+        "tags": ["family"],
+        "summary": "Add a new family to the store",
+        "operationId": "createFamily",
+        "parameters": [
+          {
+            "name": "family_name",
+            "in": "formData",
+            "default": "Pupkin",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "default": "example@gmail.com",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "default": "Hello_World!1",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was created",
+            "schema": {
+              "$ref": "#/definitions/singleFamily"
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["family"],
+        "summary": "Get family from the store",
+        "operationId": "getFamilyThatRegistration",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "default": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "family was registration",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/singleFamily"
+              }
+            }
+          },
+          "400": {
+            "description": "Just an error",
+            "schema": {
+              "$ref": "#/definitions/commonError"
+            }
+          }
+        }
+      }
+    },
+
     "/users": {
       "post": {
         "tags": ["users"],
@@ -30,16 +110,9 @@
         "operationId": "createUser",
         "parameters": [
           {
-            "name": "user_name",
+            "name": "name",
             "in": "formData",
             "default": "Nazik",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "full_name",
-            "in": "formData",
-            "default": "Nazar Nazarov",
             "required": true,
             "type": "string"
           },
@@ -197,7 +270,7 @@
             "type": "string"
           },
           {
-            "name": "full_name",
+            "name": "name",
             "in": "formData",
             "default": "Ivan Kohiv",
             "required": false,
@@ -276,14 +349,27 @@
         "operationId": "authUser",
         "parameters": [
           {
-            "name": "user_name",
+            "name": "email",
             "in": "formData",
-            "default": "Nazik",
+            "default": "Klasny",
             "required": true,
             "type": "string"
           },
           {
-            "name": "password",
+            "name": "family_password",
+            "in": "formData",
+            "default": "Hello_World!1",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_name",
+            "in": "formData",
+            "default": "Nazik",
+            "type": "string"
+          },
+          {
+            "name": "user_password",
             "in": "formData",
             "default": "Hello_World!1",
             "required": true,
@@ -664,7 +750,7 @@
             "type": "string"
           },
           {
-            "name": "full_name_user",
+            "name": "name_user",
             "in": "formData",
             "default": "Ivan Popov",
             "required": false,
@@ -692,6 +778,20 @@
     }
   },
   "definitions": {
+    "singleFamily": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "12345@ss",
+          "description": "MongoDB ID"
+        },
+        "family_name":{
+          "type": "string",
+          "example": "Pupkin"
+        }
+      }
+    },
     "singleUser": {
       "type": "object",
       "properties": {

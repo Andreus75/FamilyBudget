@@ -3,6 +3,7 @@ const { User, Auth, ActionForgot, Family} = require('../dataBase');
 const { AUTHORIZATION } = require('../configs/constants');
 const { USER_NOT_FOUND, ClientErrorNotFound, SuccessOK, FAMILY_IS_ACTIVE} = require('../configs/error-enum');
 const { tokenTypeEnum, emailActionEnum, config : { HTTP } } = require('../configs');
+const {familyNormalization} = require('../util/family.util');
 
 module.exports = {
     family_login: async (req, res, next) => {
@@ -17,7 +18,9 @@ module.exports = {
 
                 await Auth.create({...tokenPair, family_id: family._id, user_id: user._id});
 
-                res.json({family, ...tokenPair});
+                const familyNormalize = familyNormalization(family);
+
+                res.json({familyNormalize, ...tokenPair});
             }else {
                 const tokenPair = jwtService.generateTokenPair();
 
@@ -25,7 +28,9 @@ module.exports = {
 
                 await Auth.create({...tokenPair, family_id: family._id});
 
-                res.json({family, ...tokenPair});
+                const familyNormalize = familyNormalization(family);
+
+                res.json({familyNormalize, ...tokenPair});
             }
         } catch (e) {
             next(e);
